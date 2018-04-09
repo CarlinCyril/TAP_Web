@@ -24,7 +24,7 @@
     <body>
         <header class="header">
 		<script src="jquery.js"></script>
-		<script src="header.js"></script>
+		<%@include file="../header.jsp"%>
         </header>
         <div class="container">
                 <div class="col-md-12 search-box">

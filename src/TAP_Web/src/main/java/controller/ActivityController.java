@@ -23,7 +23,7 @@ import model.Activity;
  *
  * @author cyrilcarlin
  */
-@WebServlet(name = "ActivityController", urlPatterns = {"/ActivityController"})
+@WebServlet(name = "ActivityController", urlPatterns = {"/Activity"})
 public class ActivityController extends HttpServlet {
     
     @Resource(name = "jdbc/tap")

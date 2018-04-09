@@ -1,3 +1,11 @@
+<%-- 
+    Document   : index
+    Created on : 10 avr. 2018, 01:03:17
+    Author     : cyrilcarlin
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,7 +29,7 @@
     <body>
         <header class="header">
 		<script src="jquery.js"></script>
-		<script src="header.js"></script>
+                <%@include file="header.jsp"%>
         </header>
         <div class="home">
             <div class="title-home">
@@ -77,3 +85,4 @@
         <script src="JS/CustomSelect.js"></script>
     </body>
         
+

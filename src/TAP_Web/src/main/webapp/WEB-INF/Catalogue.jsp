@@ -1,7 +1,9 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
-    	<title>Ecole de super héros</title>
+        <title>Ecole de super héros</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         
         <!-- Bootstrap -->
@@ -15,20 +17,15 @@
         
         <!-- CSS Home Index -->
         <link rel="stylesheet" href="CSS/Home.css" />
-    
+        
+        <!-- CSS Play Page -->
+        <link rel="stylesheet" href="CSS/Catalogue.css" />
     </head>
-            
     <body>
         <header class="header">
 		<script src="jquery.js"></script>
 		<script src="header.js"></script>
         </header>
-        <div class="home">
-            <div class="title-home">
-                <h2>Ecole de Super Héros</h2>
-                <p>Gestion des activités périscolaires</p>
-            </div>
-        </div>
         <div class="container">
                 <div class="col-md-12 search-box">
                     <h4>Rechercher une activité</h4>
@@ -74,6 +71,25 @@
 					</div>
                 </div>
             </div>
+        <table id="catalogue">
+            <tr>
+                <th>Basketball</th>
+                <th>CP/CE1</th>
+                <th>50€</th>
+            </tr>
+            <tr>
+                <th>Volleyball</th>
+                <th>CM1/CM2</th>
+                <th>70€</th>
+            </tr>
+            <c:forEach items="${activities}" var="activity">
+                <tr>
+                    <th>${activity.name}</th>
+                    <th>${activity.levels}</th>
+                    <th>${activity.price}</th>
+                </tr>
+            </c:forEach>
+        </table>
         <script src="JS/CustomSelect.js"></script>
     </body>
-        
+</html>

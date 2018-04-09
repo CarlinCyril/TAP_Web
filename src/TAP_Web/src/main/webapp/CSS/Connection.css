@@ -1,31 +1,25 @@
 .connection-title {
     margin-top: 25px;
-    width: 100%;
     margin-bottom: 25px;
 }
 
 .connection-title h4 {
     font-size: 45px;
-    color: white;
+    /*! color: black; */
     text-align: center;
 }
 
 .panel-frame {
-    position:absolute;
-    top: 62%;
-    left: 50%;
-    width:70em;
-    height:44em;
-    margin-top: -22em; /*set to a negative number 1/2 of your height*/
-    margin-left: -35em; /*set to a negative number 1/2 of your width*/
-    background-color: rgba(164, 32, 7, 0.9);
+    margin-right: auto;
+    margin-left: auto;
+    width: 60%;
+    background-color: #78909C;
+    padding: 2.5em;
 }
 
 .l-r {
     background: #e0e0e0;
-    position: relative;
-    margin: 56px;
-    height: 510px;
+    /*! margin: 56px; */
     /**margin-top: 130px;**/
 }
 
@@ -35,11 +29,14 @@
     margin-left: auto;
     width: inherit;
     height: inherit;
+    display: flex;
 }
 
 .l-r .login {
-    padding-left: 40px;
-    padding-right: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 2em 0;
 }
 
 .l-r .register {
@@ -89,7 +86,15 @@
     font-size: 14px;
     color: #fff;
     text-shadow: 2px 3px 5px rgba(0,0,0,.55);
-    background-color: rgba(164, 32, 7, 0.9);
+    background-color: #78909C;
     line-height: 2.5;
     transition: .3s;
+}
+
+.r-txt a {
+    color: #4b636e;
+}
+
+.login h3 {
+    margin-top: 0 !important;
 }

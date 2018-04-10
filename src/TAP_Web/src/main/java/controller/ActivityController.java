@@ -7,6 +7,7 @@ package controller;
 
 import dao.ActivityDAO;
 import dao.DAOException;
+import dao.GroupDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import model.Activity;
+import model.Group;
 
 /**
  *
@@ -82,7 +84,12 @@ public class ActivityController extends HttpServlet {
         ActivityDAO activityDAO = new ActivityDAO(ds);
         
         try {
-            displayAllActivities(request, response, activityDAO);
+            if(action == null)
+                displayAllActivities(request, response, activityDAO);
+            else if(action == "detailActivity") {
+                String activityName = request.getParameter("activityName");
+                displayDetailActivity(request, response, activityName, activityDAO);
+            }
         } catch(DAOException e) {
             erreurBD(request, response, e);
         }
@@ -132,4 +139,14 @@ public class ActivityController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void displayDetailActivity(HttpServletRequest request, 
+            HttpServletResponse response, String activityName, ActivityDAO activityDAO) {
+        GroupDAO groupDAO = new GroupDAO(ds);
+        Activity activity = activityDAO.getActivity(activityName);
+        List<Group> groups = groupDAO.getGroupsDetail(activity);
+        request.setAttribute("activity", activity);
+        request.setAttribute("groups", groups);
+        request.getRequestDispatcher("WEB-INF/DetailActivity.jsp");
+    }
 }

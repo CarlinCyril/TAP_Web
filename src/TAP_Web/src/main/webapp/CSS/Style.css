@@ -146,3 +146,9 @@ h1 {
 .browse-box input:focus{
 	box-shadow:none;
 }
+
+.activity-title {
+    font: bold 35px Batang, arial, serif;
+    text-align: center;
+    margin: 2em;
+}

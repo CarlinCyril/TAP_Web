@@ -8,22 +8,19 @@ package dao;
 import java.util.List;
 import javax.sql.DataSource;
 import model.Activity;
+import model.Group;
 
 /**
  *
  * @author cyrilcarlin
  */
-public class ActivityDAO extends AbstractDataBaseDAO {
+public class GroupDAO extends AbstractDataBaseDAO {
 
-    public ActivityDAO(DataSource ds) {
+    public GroupDAO(DataSource ds) {
         super(ds);
     }
 
-    public List<Activity> getAllActivities() {
-        return null;
-    }
-
-    public Activity getActivity(String activityName) {
+    public List<Group> getGroupsDetail(Activity activity) {
         return null;
     }
     

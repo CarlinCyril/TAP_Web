@@ -72,7 +72,7 @@
                 </div>
             </div>
         <table id="catalogue">
-            <tr>
+            <tr onClick="window.location.href = 'basket_test.jsp';">
                 <th>Basketball</th>
                 <th>CP/CE1</th>
                 <th>50€</th>
@@ -83,7 +83,7 @@
                 <th>70€</th>
             </tr>
             <c:forEach items="${activities}" var="activity">
-                <tr>
+                <tr onclick="Activity?action=getDetailActivity&activityName=${activity.name}">
                     <th>${activity.name}</th>
                     <th>${activity.levels}</th>
                     <th>${activity.price}</th>

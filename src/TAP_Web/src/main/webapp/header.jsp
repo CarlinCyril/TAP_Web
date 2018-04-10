@@ -10,7 +10,7 @@
 	</div>
 	<div class="connection-bar">
 		<a class="sign-in" href="connection.jsp"
-                   <c:if test="${login}">style="display:none"</c:if>
+                   <c:if test="${login}">style="display:none"</c:if>>
                     Se connecter</a>
 	</div>
 </div>

@@ -1,0 +1,17 @@
+drop table NurseryChoices;
+drop table GroupsChoices;
+drop table Booking;
+drop table Child;
+drop table Level;
+drop table Diet;
+drop table CoordinatorNursery;
+drop table Nursery;
+drop table CoordinatorGroups;
+drop table Coordinator;
+drop table PeriodActivity;
+drop table Groups;
+drop table Activity;
+drop table Bill;
+drop table Period;
+drop table Parent;
+drop table Users;

@@ -1,121 +1,121 @@
 CREATE TABLE Users(
-Login VARCHAR(20) NOT NULL,
-Password VARCHAR(20) NOT NULL,
+Login VARCHAR(50) NOT NULL,
+Password VARCHAR(50) NOT NULL,
 LastConnexion Date NOT NULL,
 PRIMARY KEY(Login));
 
 
 CREATE TABLE InfoParent(
-ID_parent CHAR(20) NOT NULL,
-Login VARCHAR(20) NOT NULL,
-Name CHAR(20) NOT NULL,
-Firstname CHAR(20) NOT NULL,
-Telephone CHAR(20) NOT NULL,
-Address CHAR(50) NOT NULL,
+ID_parent VARCHAR(50) NOT NULL,
+Login VARVARCHAR(50) NOT NULL,
+Name VARCHAR(50) NOT NULL,
+Firstname VARCHAR(50) NOT NULL,
+Telephone VARCHAR(50) NOT NULL,
+Address VARCHAR(50) NOT NULL,
 PRIMARY KEY(ID_parent, Login),
 FOREIGN KEY(Login) REFERENCES Users(Login));
 
 CREATE TABLE PeriodYear(
-ID_Period CHAR(20) NOT NULL,
+ID_Period VARCHAR(50) NOT NULL,
 StartDay Date NOT NULL ,
 EndDay Date NOT NULL,
 PRIMARY KEY(ID_Period));
 
 CREATE TABLE Bill(
-ID_Bill CHAR(20) NOT NULL PRIMARY KEY,
+ID_Bill VARCHAR(50) NOT NULL PRIMARY KEY,
 BillNumber INT NOT NULL,
 IssuingDate Date NOT NULL,
 TotalPrice INT NOT NULL,
-Login VARCHAR(20) NOT NULL REFERENCES Users(Login),
-ID_Period CHAR(20) NOT NULL REFERENCES PeriodYear(ID_Period));
+Login VARVARCHAR(50) NOT NULL REFERENCES Users(Login),
+ID_Period VARCHAR(50) NOT NULL REFERENCES PeriodYear(ID_Period));
 
 CREATE TABLE Activity(
-ID_Activity CHAR(20) NOT NULL PRIMARY KEY,
-Name CHAR(20) NOT NULL,
+ID_Activity VARCHAR(50) NOT NULL PRIMARY KEY,
+Name VARCHAR(50) NOT NULL,
 Price INT NOT NULL);
 
 CREATE TABLE GroupActivity(
-ID_Group CHAR(20) NOT NULL UNIQUE,
-ID_Activity CHAR(20) NOT NULL REFERENCES Activity(ID_Activity),
-DaysOfTheWeek CHAR(20) NOT NULL,
+ID_Group VARCHAR(50) NOT NULL UNIQUE,
+ID_Activity VARCHAR(50) NOT NULL REFERENCES Activity(ID_Activity),
+DaysOfTheWeek VARCHAR(50) NOT NULL,
 StartTime Date NOT NULL,
 EndTime Date NOT NULL,
-Enrollement CHAR(20) NOT NULL,
+Enrollement VARCHAR(50) NOT NULL,
 PRIMARY KEY(ID_Group, ID_Activity)
 );
 
 CREATE TABLE PeriodActivity(
-ID_Period CHAR(20) NOT NULL REFERENCES PeriodYear(ID_Period),
-ID_Activity CHAR(20) NOT NULL REFERENCES Activity(ID_Activity),
+ID_Period VARCHAR(50) NOT NULL REFERENCES PeriodYear(ID_Period),
+ID_Activity VARCHAR(50) NOT NULL REFERENCES Activity(ID_Activity),
 PRIMARY KEY(ID_Period, ID_Activity)
 );
 CREATE TABLE Coordinator(
-ID_Coordinator CHAR(20) NOT NULL PRIMARY KEY,
-Name CHAR(20) NOT NULL,
-Firstname Char(20) NOT NULL
+ID_Coordinator VARCHAR(50) NOT NULL PRIMARY KEY,
+Name VARCHAR(50) NOT NULL,
+Firstname VARCHAR(50) NOT NULL
 );
 CREATE TABLE CoordinatorGroup(
-ID_Coordinator CHAR(20) NOT NULL REFERENCES Coordinator(ID_Coordinator),
-ID_Group CHAR(20) NOT NULL REFERENCES GroupActivity(ID_Group),
-ID_Activity CHAR(20) NOT NULL REFERENCES Activity(ID_Activity),
+ID_Coordinator VARCHAR(50) NOT NULL REFERENCES Coordinator(ID_Coordinator),
+ID_Group VARCHAR(50) NOT NULL REFERENCES GroupActivity(ID_Group),
+ID_Activity VARCHAR(50) NOT NULL REFERENCES Activity(ID_Activity),
 PRIMARY KEY(ID_Coordinator, ID_Group, ID_Activity)
 );
 CREATE TABLE Nursery(
-ID_Nursery CHAR(20) NOT NULL PRIMARY KEY,
-StartTime CHAR(20) NOT NULL,
-EndTime CHAR(20) NOT NULL ,
+ID_Nursery VARCHAR(50) NOT NULL PRIMARY KEY,
+StartTime VARCHAR(50) NOT NULL,
+EndTime VARCHAR(50) NOT NULL ,
 Price INT NOT NULL
 );
 CREATE TABLE CoordinatorNursery(
 ID_Coordinator INT NOT NULL,
-ID_Nursery CHAR(20) NOT NULL REFERENCES Nursery(ID_Nursery),
-row1 CHAR(20) NOT NULL,
+ID_Nursery VARCHAR(50) NOT NULL REFERENCES Nursery(ID_Nursery),
+row1 VARCHAR(50) NOT NULL,
 PRIMARY KEY(ID_Coordinator, ID_Nursery)
 );
 CREATE TABLE Diet(
-ID_Diet CHAR(20) NOT NULL Primary key,
-Descriptif CHAR(50) NOT NULL
+ID_Diet VARCHAR(50) NOT NULL Primary key,
+Descriptif VARCHAR(50) NOT NULL
 );
 CREATE TABLE ClassLevel(
-LevelName CHAR(20) NOT NULL Primary Key
+LevelName VARCHAR(50) NOT NULL Primary Key
 );
 CREATE TABLE Child(
-ID_Child CHAR(20) NOT NULL UNIQUE,
-Login VARCHAR(20) NOT NULL,
-Name CHAR(20) NOT NULL,
-Firstname CHAR(20) NOT NULL,
+ID_Child VARCHAR(50) NOT NULL UNIQUE,
+Login VARVARCHAR(50) NOT NULL,
+Name VARCHAR(50) NOT NULL,
+Firstname VARCHAR(50) NOT NULL,
 BirthDate DATE NOT NULL,
-Gender CHAR(20),
-Diet CHAR(20) NOT NULL REFERENCES Diet(ID_Diet),
-ClassLevel CHAR(20) NOT NULL REFERENCES ClassLevel(LevelName),
+Gender VARCHAR(50),
+Diet VARCHAR(50) NOT NULL REFERENCES Diet(ID_Diet),
+ClassLevel VARCHAR(50) NOT NULL REFERENCES ClassLevel(LevelName),
 PRIMARY KEY(ID_Child, login),
 FOREIGN KEY (Login) REFERENCES Users(Login)
 );
 
 CREATE TABLE Booking(
-ID_Booking CHAR(20) NOT NULL PRIMARY KEY,
-CafeteriaDays CHAR(50) NOT NULL,
-ID_Child CHAR(20) NOT NULL REFERENCES Child(ID_Child),
-Login VARCHAR(20) NOT NULL REFERENCES Users(Login),
-Diet CHAR(20) NOT NULL REFERENCES Diet(ID_Diet)
+ID_Booking VARCHAR(50) NOT NULL PRIMARY KEY,
+CafeteriaDays VARCHAR(50) NOT NULL,
+ID_Child VARCHAR(50) NOT NULL REFERENCES Child(ID_Child),
+Login VARVARCHAR(50) NOT NULL REFERENCES Users(Login),
+Diet VARCHAR(50) NOT NULL REFERENCES Diet(ID_Diet)
 );
 
 CREATE TABLE GroupChoices(
-ID_Booking CHAR(20) NOT NULL REFERENCES booking(ID_Booking),
-ID_Activity CHAR(20) NOT NULL REFERENCES Activity(ID_Activity),
-ID_Group CHAR(20) NOT NULL REFERENCES GroupActivity(ID_Group),
+ID_Booking VARCHAR(50) NOT NULL REFERENCES booking(ID_Booking),
+ID_Activity VARCHAR(50) NOT NULL REFERENCES Activity(ID_Activity),
+ID_Group VARCHAR(50) NOT NULL REFERENCES GroupActivity(ID_Group),
 PRIMARY KEY (ID_Booking, ID_Activity, ID_Group)
 );
 CREATE TABLE NurseryChoices(
-ID_Booking CHAR(20) NOT NULL REFERENCES Booking(ID_Booking),
-ID_Nursery CHAR(20) NOT NULL REFERENCES Nursery(ID_Nursery),
+ID_Booking VARCHAR(50) NOT NULL REFERENCES Booking(ID_Booking),
+ID_Nursery VARCHAR(50) NOT NULL REFERENCES Nursery(ID_Nursery),
 PRIMARY KEY (ID_Booking, ID_Nursery)
 );
 
 CREATE TABLE GroupLevels(
-ID_Activity CHAR(20) NOT NULL REFERENCES Activity(ID_Activity),
-ID_Group CHAR(20) NOT NULL REFERENCES GroupActivity(ID_Group),
-ClassLevel CHAR(20) NOT NULL REFERENCES ClassLevel(LevelName)
+ID_Activity VARCHAR(50) NOT NULL REFERENCES Activity(ID_Activity),
+ID_Group VARCHAR(50) NOT NULL REFERENCES GroupActivity(ID_Group),
+ClassLevel VARCHAR(50) NOT NULL REFERENCES ClassLevel(LevelName)
 );
 
 /**

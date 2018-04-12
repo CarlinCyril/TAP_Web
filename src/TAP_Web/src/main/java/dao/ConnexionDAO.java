@@ -16,21 +16,23 @@ import model.User;
  *
  * @author cyrilcarlin
  */
-public class UserDAO extends AbstractDataBaseDAO {
+public class ConnexionDAO extends AbstractDataBaseDAO {
 
-    public UserDAO(DataSource ds) {
+    public ConnexionDAO(DataSource ds) {
         super(ds);
     }
 
-    public User login(String user, String password) {
+    public User login(String username, String password) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         boolean valid = false;
+        
         try {
                 connection = dataSource.getConnection();
-                statement = connection.prepareStatement("SELECT username FROM Client WHERE username = ? AND password = ?");
-                statement.setString(1, user);
+                statement = connection.prepareStatement(
+                        "SELECT login FROM Users WHERE login=? AND password=?");
+                statement.setString(1, username);
                 statement.setString(2, password);
                 resultSet = statement.executeQuery();
                 valid = resultSet.next();
@@ -40,7 +42,7 @@ public class UserDAO extends AbstractDataBaseDAO {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
                 try { connection.close(); } catch(Exception e){ /* ignored */}
-                return valid ? new User(user) : null;
+                return valid ? new User(username) : null;
         }
     }
     

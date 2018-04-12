@@ -9,8 +9,11 @@
 		</ul>
 	</div>
 	<div class="connection-bar">
-		<a class="sign-in" href="connection.jsp"
-                   <c:if test="${login}">style="display:none"</c:if>>
-                    Se connecter</a>
+            <c:if test="${login}">
+		<a class="sign-in" href="Login?action=logOut">Se déconnecter</a>
+            </c:if>
+            <c:if test="${empty login || !login}">
+                <a class="sign-in" href="connection.jsp">Se connecter</a>
+            </c:if>
 	</div>
 </div>

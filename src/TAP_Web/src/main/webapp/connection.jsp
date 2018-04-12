@@ -49,6 +49,7 @@
                                 </c:if>
                                 <div class="btn">
                                     <input value="Se connecter" class="l-btn" type="submit" name="login">
+                                    <input type="hidden" name="action" value="logIn" />
                                 </div>
                                 <div class="r-txt">Identifiants <a href="#">oubliés</a>?
                                 </div>

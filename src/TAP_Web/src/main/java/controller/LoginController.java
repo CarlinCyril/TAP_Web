@@ -5,7 +5,8 @@
  */
 package controller;
 
-import dao.UserDAO;
+import dao.ConnexionDAO;
+import dao.DAOException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import model.User;
 
@@ -26,6 +28,20 @@ public class LoginController extends HttpServlet {
 
     @Resource(name = "jdbc/tap")
     private DataSource ds;
+    
+    /* pages d’erreurs */
+    private void invalidParameters(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/WEB-INF/controleurErreur.jsp").forward(request, response);        
+    }
+
+    private void erreurBD(HttpServletRequest request,
+                HttpServletResponse response, DAOException e)
+            throws ServletException, IOException {
+        e.printStackTrace(); // permet d’avoir le détail de l’erreur dans catalina.out
+        request.setAttribute("erreurMessage", e.getMessage());
+        request.getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+    }
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,22 +56,19 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        if(request.getSession().getAttribute("user") != null)
-			request.getRequestDispatcher("/WEB-INF/gameboard.jsp").forward(request, response);
-		else {
-			UserDAO userDAO = new UserDAO(ds);
-			PrintWriter out = response.getWriter();
-			User user = userDAO.login(request.getParameter("login"), request.getParameter("password"));
-			if(user == null) {
-                            request.setAttribute("login", false);
-                            request.getRequestDispatcher("connection.jsp").forward(request, response);
-                        }
-			else {
-                            request.getSession().setAttribute("user", user);
-                            request.getSession().setAttribute("login", true);
-                            request.getRequestDispatcher("/WEB-INF/gameboard.jsp").forward(request, response);
-			}
-		}
+        String action = request.getParameter("action");
+        try {
+        if(action == null)
+            request.getRequestDispatcher("connection.jsp").forward(request, response);
+        else if(action.equals("logIn"))
+            logIn(request, response);
+        else if(action.equals("logOut"))
+            logOut(request, response);
+        } catch(DAOException e) {
+            erreurBD(request, response, e);
+        }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -96,5 +109,30 @@ public class LoginController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void logIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getSession().getAttribute("user") != null)
+            request.getRequestDispatcher("/WEB-INF/Catalogue.jsp").forward(request, response);
+        else {
+            ConnexionDAO userDAO = new ConnexionDAO(ds);
+            PrintWriter out = response.getWriter();
+            User user = userDAO.login(request.getParameter("login"), request.getParameter("password"));
+            if(user == null) {
+                request.setAttribute("login", false);
+                request.getRequestDispatcher("connection.jsp").forward(request, response);
+            }
+            else {
+                request.getSession().setAttribute("user", user);
+                request.getSession().setAttribute("login", true);
+                request.getRequestDispatcher("/WEB-INF/Catalogue.jsp").forward(request, response);
+            }
+        }
+    }
+
+    private void logOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
 
 }

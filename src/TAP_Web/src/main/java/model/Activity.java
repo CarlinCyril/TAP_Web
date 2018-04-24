@@ -13,21 +13,15 @@ import java.util.List;
  */
 public class Activity {
     private String name;
-    private String level;
     private int price;
 
-    public Activity(String name, String level, int price) {
+    public Activity(String name, int price) {
         this.name = name;
-        this.level = level;
         this.price = price;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getLevel() {
-        return level;
     }
 
     public int getPrice() {
@@ -36,10 +30,6 @@ public class Activity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
     }
 
     public void setPrice(int price) {

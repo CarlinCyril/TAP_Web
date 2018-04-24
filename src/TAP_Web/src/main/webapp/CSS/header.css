@@ -8,15 +8,11 @@ header {
 
 #tab-title
 {
-        position : absolute;
-
         padding : 0;
 
         font : bold 21px Batang, arial, serif;
 
         list-style-type : none;
-
-        left : 50%;
 
         margin-top : 0;
     

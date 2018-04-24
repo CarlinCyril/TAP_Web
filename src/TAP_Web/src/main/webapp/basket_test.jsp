@@ -75,7 +75,7 @@
 						</a>
 					</li>
 
-					<li class="single-event" data-start="15:30" data-end="16:30" data-content="event-rowing-workout" data-event="event-2">
+					<li class="single-event" data-start="15:30" data-end="17:30" data-content="event-rowing-workout" data-event="event-2">
 						<a href="#0">
 							<em class="event-name">Basketball CM1/CM2</em>
 						</a>

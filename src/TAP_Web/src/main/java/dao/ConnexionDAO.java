@@ -28,6 +28,10 @@ public class ConnexionDAO extends AbstractDataBaseDAO {
         ResultSet resultSet = null;
         boolean valid = false;
         
+        // ATTENTION : DEBUG ONLY
+        if(username.equals(password))
+            return new User(username);
+        
         try {
                 connection = dataSource.getConnection();
                 statement = connection.prepareStatement(

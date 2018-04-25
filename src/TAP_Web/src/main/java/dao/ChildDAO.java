@@ -11,39 +11,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.sql.DataSource;
-import model.InfoParent;
-import model.User;
+import model.Child;
 
 /**
  *
  * @author cyrilcarlin
  */
-public class ParentDAO extends AbstractDataBaseDAO {
+public class ChildDAO extends AbstractDataBaseDAO {
 
-    public ParentDAO(DataSource ds) {
+    public ChildDAO(DataSource ds) {
         super(ds);
     }
     
-    public ArrayList<InfoParent> getParentsUser(User user) {
+    public ArrayList<Child> getChildrenUser(String username) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         boolean valid = false;
-        ArrayList<InfoParent> listParents = new ArrayList<InfoParent>();
+        ArrayList<Child> listChildren = new ArrayList<Child>();
         try {
                 connection = dataSource.getConnection();
                 statement = connection.prepareStatement(
-                        "SELECT * FROM InfoParent WHERE Login = ?");
-                statement.setString(1, user.getUsername());
+                        "SELECT * FROM Child WHERE Login = ?");
+                statement.setString(1, username);
                 resultSet = statement.executeQuery();
                 while(resultSet.next()) {
-                    InfoParent parent;
-                    parent = new InfoParent(resultSet.getNString(1), 
-                            user, resultSet.getNString(3),
+                    Child child;
+                    child = new Child(resultSet.getNString(1), 
+                            username, resultSet.getNString(3),
                             resultSet.getNString(4),
-                            resultSet.getNString(5),
-                            resultSet.getNString(6));
-                    listParents.add(parent);
+                            resultSet.getDate("Birthdate"),
+                            resultSet.getNString(6),
+                            resultSet.getNString(7),
+                            resultSet.getNString(8));
+                    listChildren.add(child);
                 }
         } catch(SQLException se){
                 System.out.println(se.getMessage());
@@ -51,11 +52,11 @@ public class ParentDAO extends AbstractDataBaseDAO {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
                 try { connection.close(); } catch(Exception e){ /* ignored */}
-                return listParents;
+                return listChildren;
         }
     }
     
-    public void addParent(InfoParent parent) {
+    public void addChild(Child child) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -64,14 +65,17 @@ public class ParentDAO extends AbstractDataBaseDAO {
         try {
                 connection = dataSource.getConnection();
                 statement = connection.prepareStatement(
-                        "INSERT INTO InfoParent (ID_Parent, Login, Name, Firstname, Telephone, Address)"
+                        "INSERT INTO InfoParent (ID_Parent, Login, Name, "
+                                + "Firstname, Birthdate, Gender, Diet, ClassLevel) "
                                 + "VALUES (?,?,?,?,?,?)");
-                statement.setString(1, parent.getIdParents());
-                statement.setString(2, parent.getUser().getUsername());
-                statement.setString(3, parent.getName());
-                statement.setString(4, parent.getFirstname());
-                statement.setString(5, parent.getPhoneNumber());
-                statement.setString(6, parent.getAddress());
+                statement.setString(1, child.getIdChild());
+                statement.setString(2, child.getLogin());
+                statement.setString(3, child.getName());
+                statement.setString(4, child.getFirstName());
+                statement.setDate(5, child.getBirthdate());
+                statement.setString(6, child.getGender());
+                statement.setString(7, child.getDiet());
+                statement.setString(8, child.getLevel());
                 resultSet = statement.executeQuery();
         } catch(SQLException se){
                 System.out.println(se.getMessage());
@@ -82,7 +86,7 @@ public class ParentDAO extends AbstractDataBaseDAO {
         }
     }
     
-    public void editParent(InfoParent parent) {
+    public void editChild(Child child) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -91,17 +95,21 @@ public class ParentDAO extends AbstractDataBaseDAO {
         try {
                 connection = dataSource.getConnection();
                 statement = connection.prepareStatement(
-                        "UPDATE InfoParent SET Name=?, "
+                        "UPDATE Child SET Name=?, "
                                 + "Firstname=?,"
-                                + " Telephone=?,"
-                                + " Address=?"
-                                + "WHERE ID_Parent=? AND Login=?");
-                statement.setString(3, parent.getName());
-                statement.setString(4, parent.getFirstname());
-                statement.setString(5, parent.getPhoneNumber());
-                statement.setString(6, parent.getAddress());
-                statement.setString(6, parent.getIdParents());
-                statement.setString(6, parent.getUser().getUsername());
+                                + " Birthdate=?,"
+                                + " Gender=?,"
+                                + " Diet=?,"
+                                + " ClassLevel=?"
+                                + "WHERE ID_Child=? AND Login=?");
+                statement.setString(1, child.getName());
+                statement.setString(2, child.getFirstName());
+                statement.setDate(3, child.getBirthdate());
+                statement.setString(4, child.getGender());
+                statement.setString(5, child.getDiet());
+                statement.setString(6, child.getLevel());
+                statement.setString(7, child.getIdChild());
+                statement.setString(8, child.getLogin());
                 resultSet = statement.executeQuery();
         } catch(SQLException se){
                 System.out.println(se.getMessage());
@@ -111,4 +119,5 @@ public class ParentDAO extends AbstractDataBaseDAO {
                 try { connection.close(); } catch(Exception e){ /* ignored */}
         }
     }
+    
 }

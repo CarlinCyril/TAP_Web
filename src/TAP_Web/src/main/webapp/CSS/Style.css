@@ -152,3 +152,56 @@ h1 {
     text-align: center;
     margin: 2em;
 }
+
+.custom-select2 {
+    display: flex;
+    margin-bottom: 7px;
+}
+
+.custom-select2 p {
+    margin: 5px;
+}
+
+.input-child {
+    min-height: 250px;
+}
+
+#input-cafeteria {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#input-cafeteria table {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#input-cafeteria th {
+    text-align: center;
+    background-color: #78909c;
+    color: white;
+}
+
+#input-cafeteria th, td {
+    border: 1px solid #ddd;
+    padding: 7px;
+}
+
+#input-garderie {
+    font-size: 0.8em;
+}
+
+table#catalogue {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+    width: 75%;
+}
+
+table#catalogue tr.accordion {
+    height: 2em;
+}
+
+table#catalogue th {
+    padding: 1.1em;
+}

@@ -17,9 +17,12 @@
 
 .panel {
     padding: 0 18px;
-    display: none;
     background-color: white;
     overflow: hidden;
+}
+
+.panel table {
+    width: 50%;
 }
 
 button.accordion::after {

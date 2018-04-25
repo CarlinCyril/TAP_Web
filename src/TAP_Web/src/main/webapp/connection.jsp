@@ -34,7 +34,7 @@
         </header>
         <div>
             <div class="connection-title">
-                <h4>Accéder à son espace personnel</h4>
+                <h4>Accéder à son espace personnel </h4>
             </div>
             <div class="panel-frame">
             	<div class="l-r">

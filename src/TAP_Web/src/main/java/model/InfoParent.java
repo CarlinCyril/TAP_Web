@@ -11,15 +11,15 @@ package model;
  */
 public class InfoParent {
     private String idParents;
-    private String login;
+    private User user;
     private String name;
     private String firstname;
     private String phoneNumber;
     private String address;
 
-    public InfoParent(String idParents, String login, String name, String firstname, String phoneNumber, String address) {
+    public InfoParent(String idParents, User user, String name, String firstname, String phoneNumber, String address) {
         this.idParents = idParents;
-        this.login = login;
+        this.user = user;
         this.name = name;
         this.firstname = firstname;
         this.phoneNumber = phoneNumber;
@@ -34,13 +34,13 @@ public class InfoParent {
         this.idParents = idParents;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setLogin(User user) {
+        this.user = user;
     }
 
 
-    public String getLogin() {
-        return login;
+    public User getUser() {
+        return user;
     }
 
     public String getName() {

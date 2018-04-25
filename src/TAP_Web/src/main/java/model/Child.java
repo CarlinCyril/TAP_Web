@@ -5,20 +5,24 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author demarquq
  */
 public class Child {
     private String idChild;
+    private String login;
     private String name;
     private String firstName;
     private String diet;
-    private String birthdate;
+    private Date birthdate;
     private String gender;
     private String level;
 
-    public Child(String idChild, String name, String firstName, String diet, String birthdate, String gender, String level) {
+    public Child(String idChild, String login, String name, String firstName, 
+            Date birthdate, String gender, String diet, String level) {
         this.idChild = idChild;
         this.name = name;
         this.firstName = firstName;
@@ -26,6 +30,14 @@ public class Child {
         this.birthdate = birthdate;
         this.gender = gender;
         this.level = level;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getLogin() {
+        return login;
     }
 
     public String getIdChild() {
@@ -50,7 +62,7 @@ public class Child {
         return diet;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
@@ -74,7 +86,7 @@ public class Child {
         this.diet = diet;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 

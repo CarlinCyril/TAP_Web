@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 import model.InfoParent;
 import dao.ParentDAO;
 import java.util.ArrayList;
+import model.User;
 
 /**
  *
@@ -69,7 +70,6 @@ public class ParentController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -81,7 +81,7 @@ public class ParentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("parent.jsp");
+        request.getRequestDispatcher("parent.jsp").forward(request, response);
     }
 
     /**
@@ -97,7 +97,7 @@ public class ParentController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-        String parentLogin = (String) request.getSession().getAttribute("user");
+        User parentLogin = (User) request.getSession().getAttribute("user");
         ParentDAO parentDAO = new ParentDAO(ds);
         ArrayList<InfoParent> parents = parentDAO.getParentsUser(parentLogin);
         request.setAttribute("parents", parents);
@@ -120,7 +120,7 @@ public class ParentController extends HttpServlet {
                 InfoParent parent = new InfoParent(ID, parentLogin, parentName, parentFirstname, parentPhone, parentAddress );
                 parentDAO.editParent(parent);
             }
-            request.getRequestDispatcher("parent.jsp");
+            request.getRequestDispatcher("parent.jsp").forward(request, response);
         } catch(DAOException e) {
             erreurBD(request, response, e);
         }

@@ -20,6 +20,9 @@
         
         <!-- CSS Play Page -->
         <link rel="stylesheet" href="CSS/Catalogue.css" />
+        
+        
+        
     </head>
     <body>
         <header class="header">
@@ -72,24 +75,50 @@
                 </div>
             </div>
         <table id="catalogue">
-            <tr onClick="window.location.href = 'basket_test.jsp';">
-                <th>Basketball</th>
-                <th>CP/CE1</th>
-                <th>50€</th>
+            <tr class="accordion">
+                <th colspan="2">Basketball</th>
+                <th colspan="2">50€</th>
             </tr>
-            <tr>
+            <tr class="panel" style="display:none">
+                <td>Mardi</td>
+                <td>15h30/16h30</td>
+                <td>CP</td>
+                <td>Réserver</td>
+            </tr>
+            <tr class="panel" style="display:none">
+                <td>Lundi</td>
+                <td>15h30/16h30</td>
+                <td>CE1</td>
+                <td><a href="Child">Réserver</a></td>
+            </tr>
+            <tr class="accordion">
                 <th>Volleyball</th>
                 <th>CM1/CM2</th>
                 <th>70€</th>
             </tr>
+            <tr class="panel" style="display:none">
+                <th>Mardi</th>
+                <th>15h30/16h30</th>
+                <th>CP</th>
+            </tr>
             <c:forEach items="${activities}" var="activity">
-                <tr onclick="Activity?action=getDetailActivity&activityName=${activity.name}">
-                    <th>${activity.name}</th>
-                    <th>${activity.levels}</th>
-                    <th>${activity.price}</th>
+                <tr class="accordion">
+                    <th colspan="2">${activity.getName()}</th>
+                    <th colspan="2">${activity.getPrice()}</th>
                 </tr>
+                <c:forEach items="${groups}" var="group">
+                    <c:if test="${group.getActivity().getName().equals(activity.getName())}">
+                        <tr class="panel" style="display:none">
+                            <td>${group.getDayOfTheWeek()}</td>
+                            <td>${group.getStartTime()}/${group.getEndTime()}</td>
+                            <td>${group.toStringLevels()}</td>
+                            <td><a href="Child">Réserver</a></td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
             </c:forEach>
         </table>
         <script src="JS/CustomSelect.js"></script>
+        <script src="JS/accordion.js"></script>
     </body>
 </html>

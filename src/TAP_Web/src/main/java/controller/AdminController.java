@@ -104,6 +104,10 @@ public class AdminController extends HttpServlet {
                 	}else if(action.equals("delAct")) {
                 		String id = request.getParameter("id");
                 		editDAO.delAct(id);
+                	}else if(action.equals("setCost")) {
+                		String id = request.getParameter("id");
+                		String cost = request.getParameter("cost");
+                		editDAO.setCost(id, Integer.parseInt(cost));
                 	}
                // request.getRequestDispatcher("admin.jsp").forward(request, response);
                 } catch(DAOException e) {

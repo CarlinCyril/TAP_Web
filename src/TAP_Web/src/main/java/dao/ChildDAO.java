@@ -65,9 +65,8 @@ public class ChildDAO extends AbstractDataBaseDAO {
         try {
                 connection = dataSource.getConnection();
                 statement = connection.prepareStatement(
-                        "INSERT INTO InfoParent (ID_Parent, Login, Name, "
-                                + "Firstname, Birthdate, Gender, Diet, ClassLevel) "
-                                + "VALUES (?,?,?,?,?,?)");
+                        "INSERT INTO Child "
+                                + "VALUES (?,?,?,?,?,?,?,?)");
                 statement.setString(1, child.getIdChild());
                 statement.setString(2, child.getLogin());
                 statement.setString(3, child.getName());

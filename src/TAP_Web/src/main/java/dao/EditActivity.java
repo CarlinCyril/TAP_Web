@@ -38,7 +38,7 @@ public class EditActivity extends AbstractDataBaseDAO{
         	statement = co.prepareStatement("SELECT MAX(ID_Activity) FROM Activity");
         	resultSet = statement.executeQuery();
         	while(resultSet.next()) {
-        		id = Integer.parseInt(resultSet.getString("ID_Activivty")) + 1;
+        		id = Integer.parseInt(resultSet.getString("ID_Activity")) + 1;
         	}
         	}catch(SQLException se){
         		System.out.println(se.getMessage());

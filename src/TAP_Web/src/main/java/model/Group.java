@@ -10,16 +10,16 @@ import java.util.ArrayList;
 
 public class Group {
     private String ID_Group;
-    private Activity activity;
+    private String ID_Activity;
     private String dayOfTheWeek;
-    private Time startTime;
-    private Time endTime;
+    private String startTime;
+    private String endTime;
     private Integer enrollment;
     private ArrayList<ClassLevel> levels;
 
-    public Group(String ID_Group, Activity activity, String dayOfTheWeek, Time startTime, Time endTime, Integer enrollment, ArrayList<ClassLevel> levels) {
+    public Group(String ID_Group, String activity, String dayOfTheWeek, String startTime, String endTime, Integer enrollment, ArrayList<ClassLevel> levels) {
         this.ID_Group = ID_Group;
-        this.activity = activity;
+        this.ID_Activity = activity;
         this.dayOfTheWeek = dayOfTheWeek;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -39,19 +39,19 @@ public class Group {
         this.ID_Group = ID_Group;
     }
 
-    public void setActivity(Activity activity) {
-        this.activity = activity;
+    public void setActivity(String activity) {
+        this.ID_Activity = activity;
     }
 
     public void setDayOfTheWeek(String dayOfTheWeek) {
         this.dayOfTheWeek = dayOfTheWeek;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
@@ -63,19 +63,19 @@ public class Group {
         return ID_Group;
     }
 
-    public Activity getActivity() {
-        return activity;
+    public String getActivity() {
+        return ID_Activity;
     }
 
     public String getDayOfTheWeek() {
         return dayOfTheWeek;
     }
 
-    public Time getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public Time getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
@@ -93,7 +93,7 @@ public class Group {
     
     public String toStringWish() {
         String result = new String();
-        result = "wish-" + getID_Group() + getActivity().getName();
+        result = "wish-" + getID_Group() + ID_Activity;
         return result;
     }
 }

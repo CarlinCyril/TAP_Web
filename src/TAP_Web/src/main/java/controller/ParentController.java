@@ -81,7 +81,7 @@ public class ParentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("parent.jsp").forward(request, response);
+        displayParentForm(request, response);
     }
 
     /**
@@ -120,11 +120,25 @@ public class ParentController extends HttpServlet {
                 InfoParent parent = new InfoParent(ID, parentLogin, parentName, parentFirstname, parentPhone, parentAddress );
                 parentDAO.editParent(parent);
             }
-            request.getRequestDispatcher("parent.jsp").forward(request, response);
+            displayParentForm(request, response);
         } catch(DAOException e) {
             erreurBD(request, response, e);
         }
     }
+    
+    private void displayParentForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        User parentLogin = (User) request.getSession().getAttribute("user");
+        if(parentLogin != null) {
+            ParentDAO parentDAO = new ParentDAO(ds);
+            ArrayList<InfoParent> parents = parentDAO.getParentsUser(parentLogin);
+            request.setAttribute("parents", parents);
+            request.getRequestDispatcher("parent.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("connection.jsp").forward(request, response);
+        }
+    } 
 
     /**
      * Returns a short description of the servlet.

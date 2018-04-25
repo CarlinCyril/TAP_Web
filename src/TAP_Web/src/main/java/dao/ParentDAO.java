@@ -96,11 +96,11 @@ public class ParentDAO extends AbstractDataBaseDAO {
                                 + " Telephone=?,"
                                 + " Address=?"
                                 + "WHERE ID_Parent=? AND Login=?");
-                statement.setString(3, parent.getName());
-                statement.setString(4, parent.getFirstname());
-                statement.setString(5, parent.getPhoneNumber());
-                statement.setString(6, parent.getAddress());
-                statement.setString(6, parent.getIdParents());
+                statement.setString(1, parent.getName());
+                statement.setString(2, parent.getFirstname());
+                statement.setString(3, parent.getPhoneNumber());
+                statement.setString(4, parent.getAddress());
+                statement.setString(5, parent.getIdParents());
                 statement.setString(6, parent.getUser().getUsername());
                 resultSet = statement.executeQuery();
         } catch(SQLException se){

@@ -24,6 +24,7 @@ public class Child {
     public Child(String idChild, String login, String name, String firstName, 
             Date birthdate, String gender, String diet, String level) {
         this.idChild = idChild;
+        this.login = login;
         this.name = name;
         this.firstName = firstName;
         this.diet = diet;

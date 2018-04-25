@@ -38,8 +38,8 @@ CREATE TABLE GroupActivity(
 ID_Group VARCHAR(50) NOT NULL UNIQUE,
 ID_Activity VARCHAR(50) NOT NULL REFERENCES Activity(ID_Activity),
 DaysOfTheWeek VARCHAR(50) NOT NULL,
-StartTime Date NOT NULL,
-EndTime Date NOT NULL,
+StartTime VARCHAR(50) NOT NULL,
+EndTime VARCHAR(50) NOT NULL,
 Enrollement VARCHAR(50) NOT NULL,
 PRIMARY KEY(ID_Group, ID_Activity)
 );
@@ -80,20 +80,19 @@ LevelName VARCHAR(50) NOT NULL Primary Key
 );
 CREATE TABLE Child(
 ID_Child VARCHAR(50) NOT NULL UNIQUE,
-Login VARCHAR(50) NOT NULL,
+Login VARCHAR(50) NOT NULL REFERENCES Users(Login),
 Name VARCHAR(50) NOT NULL,
 Firstname VARCHAR(50) NOT NULL,
 BirthDate DATE NOT NULL,
 Gender VARCHAR(50),
 Diet VARCHAR(50) NOT NULL REFERENCES Diet(ID_Diet),
 ClassLevel VARCHAR(50) NOT NULL REFERENCES ClassLevel(LevelName),
-PRIMARY KEY(ID_Child, login),
-FOREIGN KEY (Login) REFERENCES Users(Login)
+PRIMARY KEY(ID_Child, Login)
 );
 
 CREATE TABLE Booking(
 ID_Booking VARCHAR(50) NOT NULL PRIMARY KEY,
-CafeteriaDays VARCHAR(50) NOT NULL,
+CafeteriaDays INTEGER NOT NULL,
 ID_Child VARCHAR(50) NOT NULL REFERENCES Child(ID_Child),
 Login VARCHAR(50) NOT NULL REFERENCES Users(Login),
 Diet VARCHAR(50) NOT NULL REFERENCES Diet(ID_Diet)
@@ -117,71 +116,71 @@ ID_Group VARCHAR(50) NOT NULL REFERENCES GroupActivity(ID_Group),
 ClassLevel VARCHAR(50) NOT NULL REFERENCES ClassLevel(LevelName)
 );
 
-/**
-INSERT INTO User VALUES('User1', 'azer', TO_DATE('2018/03/01', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User2', 'azer', TO_DATE('2018/03/02', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User3', 'azer', TO_DATE('2018/03/01', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User4', 'azer', TO_DATE('2018/03/02', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User5', 'azer', TO_DATE('2018/03/03', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User6', 'azer', TO_DATE('2018/03/17', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User7', 'azer', TO_DATE('2018/03/16', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User8', 'azer', TO_DATE('2018/03/15', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User9', 'azer', TO_DATE('2018/03/22', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User10', 'azer', TO_DATE('2018/03/23', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User11', 'azer', TO_DATE('2018/03/24', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User12', 'azer', TO_DATE('2018/03/09', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User13', 'azer', TO_DATE('2018/03/09', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User14', 'azer', TO_DATE('2018/03/08', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User15', 'azer', TO_DATE('2018/03/06', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User16', 'azer', TO_DATE('2018/03/07', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User17', 'azer', TO_DATE('2018/03/08', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User18', 'azer', TO_DATE('2018/03/06', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User19', 'azer', TO_DATE('2018/03/05', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User20', 'azer', TO_DATE('2018/03/04', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User21', 'azer', TO_DATE('2018/03/05', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User22', 'azer', TO_DATE('2018/03/03', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User23', 'azer', TO_DATE('2018/03/02', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User24', 'azer', TO_DATE('2018/03/05', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User25', 'azer', TO_DATE('2018/03/29', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User26', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User27', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User28', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User29', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User30', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User31', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User32', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User33', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User34', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User35', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User36', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User37', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User38', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
-INSERT INTO User VALUES('User39', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+
+INSERT INTO Users VALUES('User1', 'azer', TO_DATE('2018/03/01', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User2', 'azer', TO_DATE('2018/03/02', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User3', 'azer', TO_DATE('2018/03/01', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User4', 'azer', TO_DATE('2018/03/02', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User5', 'azer', TO_DATE('2018/03/03', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User6', 'azer', TO_DATE('2018/03/17', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User7', 'azer', TO_DATE('2018/03/16', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User8', 'azer', TO_DATE('2018/03/15', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User9', 'azer', TO_DATE('2018/03/22', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User10', 'azer', TO_DATE('2018/03/23', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User11', 'azer', TO_DATE('2018/03/24', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User12', 'azer', TO_DATE('2018/03/09', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User13', 'azer', TO_DATE('2018/03/09', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User14', 'azer', TO_DATE('2018/03/08', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User15', 'azer', TO_DATE('2018/03/06', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User16', 'azer', TO_DATE('2018/03/07', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User17', 'azer', TO_DATE('2018/03/08', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User18', 'azer', TO_DATE('2018/03/06', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User19', 'azer', TO_DATE('2018/03/05', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User20', 'azer', TO_DATE('2018/03/04', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User21', 'azer', TO_DATE('2018/03/05', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User22', 'azer', TO_DATE('2018/03/03', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User23', 'azer', TO_DATE('2018/03/02', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User24', 'azer', TO_DATE('2018/03/05', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User25', 'azer', TO_DATE('2018/03/29', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User26', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User27', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User28', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User29', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User30', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User31', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User32', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User33', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User34', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User35', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User36', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User37', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User38', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User39', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
 
 
-INSERT INTO Parent VALUES('1','User1','dupont', 'karen1', '0601234567', '1 rue de la porte' );
-INSERT INTO Parent VALUES('2','User2','dupont', 'karen2', '0601534567', '2 rue de la porte' );
-INSERT INTO Parent VALUES('3','User3','dupont', 'karen3', '0621234577', '3 rue de la porte' );
-INSERT INTO Parent VALUES('4','User4','dupont', 'karen4', '0601254567', '4 rue de la porte' );
-INSERT INTO Parent VALUES('5','User5','dupont', 'karen5', '0601234567', '5 rue de la porte' );
-INSERT INTO Parent VALUES('6','User6','dupont', 'karen6', '0601234567', '6 rue de la porte' );
-INSERT INTO Parent VALUES('7','User7','dupont', 'karen7', '0601234567', '7 rue de la porte' );
-INSERT INTO Parent VALUES('8','User8','dupont', 'karen8', '0601234567', '8 rue de la porte' );
-INSERT INTO Parent VALUES('9','User9','dupont', 'karen9', '0605234567', '9 rue de la porte' );
-INSERT INTO Parent VALUES('10','User10','dupont', 'karen10', '0661234567', '10 rue de la porte' );
-INSERT INTO Parent VALUES('11','User11','dupont', 'karen11', '0601236567', '11 rue de la porte' );
-INSERT INTO Parent VALUES('12','User12','dupont', 'karen12', '0604234567', '12 rue de la porte' );
+INSERT INTO InfoParent VALUES('1','User1','dupont', 'karen1', '0601234567', '1 rue de la porte' );
+INSERT INTO InfoParent VALUES('2','User2','dupont', 'karen2', '0601534567', '2 rue de la porte' );
+INSERT INTO InfoParent VALUES('3','User3','dupont', 'karen3', '0621234577', '3 rue de la porte' );
+INSERT INTO InfoParent VALUES('4','User4','dupont', 'karen4', '0601254567', '4 rue de la porte' );
+INSERT INTO InfoParent VALUES('5','User5','dupont', 'karen5', '0601234567', '5 rue de la porte' );
+INSERT INTO InfoParent VALUES('6','User6','dupont', 'karen6', '0601234567', '6 rue de la porte' );
+INSERT INTO InfoParent VALUES('7','User7','dupont', 'karen7', '0601234567', '7 rue de la porte' );
+INSERT INTO InfoParent VALUES('8','User8','dupont', 'karen8', '0601234567', '8 rue de la porte' );
+INSERT INTO InfoParent VALUES('9','User9','dupont', 'karen9', '0605234567', '9 rue de la porte' );
+INSERT INTO InfoParent VALUES('10','User10','dupont', 'karen10', '0661234567', '10 rue de la porte' );
+INSERT INTO InfoParent VALUES('11','User11','dupont', 'karen11', '0601236567', '11 rue de la porte' );
+INSERT INTO InfoParent VALUES('12','User12','dupont', 'karen12', '0604234567', '12 rue de la porte' );
 
 INSERT INTO Diet VALUES('1', 'mange de tout');
 INSERT INTO Diet VALUES('2', 'sans porc');
 INSERT INTO Diet VALUES('3', 'vegetarien');
 
 
-INSERT INTO ClassLevel VALUES('debutant');
-INSERT INTO ClassLevel VALUES('initié');
+INSERT INTO ClassLevel VALUES('CP');
+INSERT INTO ClassLevel VALUES('CE1');
 
-INSERT INTO Child VALUES('1', 'User13', 'kevin', 'dupont', TO_DATE('2010/03/09', 'yyyy/mm/dd'), 'male', '1', 'debutant');
-INSERT INTO Child VALUES('2', 'User14', 'kevin', 'dupont', TO_DATE('2010/03/09', 'yyyy/mm/dd'), 'male', '1', 'debutant');
+INSERT INTO Child VALUES('1', 'User1', 'dupont', 'kevin', TO_DATE('2010/03/09', 'yyyy/mm/dd'), 'male', '1', 'CP');
+INSERT INTO Child VALUES('2', 'User1', 'dupont', 'jean', TO_DATE('2010/03/09', 'yyyy/mm/dd'), 'male', '1', 'CE1');
 INSERT INTO Child VALUES('3', 'User15', 'kevin', 'dupont', TO_DATE('2010/03/09', 'yyyy/mm/dd'), 'male', '1', 'debutant');
 INSERT INTO Child VALUES('4', 'User16', 'kevin', 'dupont', TO_DATE('2010/03/09', 'yyyy/mm/dd'), 'male', '1', 'debutant');
 INSERT INTO Child VALUES('5', 'User17', 'kevin', 'dupont', TO_DATE('2010/03/09', 'yyyy/mm/dd'), 'male', '1', 'debutant');
@@ -208,22 +207,10 @@ INSERT INTO Child VALUES('25', 'User37', 'lucie', 'dupont', TO_DATE('2010/03/09'
 INSERT INTO Child VALUES('26', 'User38', 'lucie', 'dupont', TO_DATE('2010/03/09', 'yyyy/mm/dd'), 'female', '1', 'debutant');
 INSERT INTO Child VALUES('27', 'User39', 'lucie', 'dupont', TO_DATE('2010/03/09', 'yyyy/mm/dd'), 'female', '1', 'debutant');
 
-INSERT INTO Nursery VALUES('1', 'lundi 7h', 'lundi 8h', 50);
-INSERT INTO Nursery VALUES('2', 'mardi 7h', 'mardi 8h', 50);
-INSERT INTO Nursery VALUES('3', 'jeudi 7h', 'jeudi 8h', 50);
-INSERT INTO Nursery VALUES('4', 'vendredi 7h', 'vendredi 8h', 50);
-INSERT INTO Nursery VALUES('5', 'lundi 15h45', 'lundi 16h30', 50);
-INSERT INTO Nursery VALUES('6', 'lundi 16h30', 'lundi 17h15', 50);
-INSERT INTO Nursery VALUES('7', 'lundi 17h15', 'lundi 18h30', 50);
-INSERT INTO Nursery VALUES('8', 'mardi 15h45', 'mardi 16h30', 50);
-INSERT INTO Nursery VALUES('9', 'mardi 16h30', 'mardi 17h15', 50);
-INSERT INTO Nursery VALUES('10', 'mardi 17h15', 'mardi 18h30', 50);
-INSERT INTO Nursery VALUES('11', 'jeudi 15h45', 'jeudi 16h30', 50);
-INSERT INTO Nursery VALUES('12', 'jeudi 16h30', 'jeudi 17h15', 50);
-INSERT INTO Nursery VALUES('13', 'jeudi 17h15', 'jeudi 18h30', 50);
-INSERT INTO Nursery VALUES('14', 'vendredi 15h45', 'vendredi 16h30', 50);
-INSERT INTO Nursery VALUES('15', 'vendredi 16h30', 'vendredi 17h15', 50);
-INSERT INTO Nursery VALUES('16', 'vendredi 17h15', 'vendredi 18h30', 50);
+INSERT INTO Nursery VALUES('nursery0', '7h00', '8h30', 50);
+INSERT INTO Nursery VALUES('nursery1', '15h45', '16h30', 50);
+INSERT INTO Nursery VALUES('nursery2', '16h30', '17h15', 50);
+INSERT INTO Nursery VALUES('nursery3', '17h15', '18h30', 50);
 
 
 
@@ -237,6 +224,11 @@ INSERT INTO Activity VALUES('4', 'atelier creatif', 50);
 INSERT INTO Activity VALUES('5', 'poterie', 50);
 INSERT INTO Activity VALUES('6', 'relaxation', 50);
 
+INSERT INTO GroupActivity VALUES ('1', '1', 'Lundi', '17:30', '18:30', 15);
+INSERT INTO GroupActivity VALUES ('2', '1', 'Mardi', '16:30', '17:30', 15);
+
+INSERT INTO GroupLevels VALUES ('1','1','CP');
+INSERT INTO GroupLevels VALUES ('1','1','CE1');
 
 INSERT INTO PeriodActivity VALUES('1', '1');
 INSERT INTO PeriodActivity VALUES('1', '2');

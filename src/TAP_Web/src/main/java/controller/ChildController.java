@@ -5,14 +5,18 @@
  */
 package controller;
 
+import dao.ActivityDAO;
+import dao.BookingDAO;
 import dao.ChildDAO;
 import dao.DAOException;
 import dao.DietDAO;
+import dao.GroupDAO;
 import dao.LevelDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,9 +24,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import model.Activity;
+import model.Booking;
 import model.Child;
 import model.Diet;
 import model.ClassLevel;
+import model.Group;
+import model.GroupChoices;
 import model.User;
 
 /**
@@ -106,7 +114,45 @@ public class ChildController extends HttpServlet {
                 childDAO.editChild(child);
             }
             else if(action.equals("bookChild")) {
+                GroupDAO groupDAO = new GroupDAO(ds);
+                BookingDAO bookingDAO = new BookingDAO(ds);
+                String childDiet = request.getParameter("diet");
+                String ID = request.getParameter("childID");
                 
+                ArrayList<String> nurseryChoices = new ArrayList<String>();
+                if(request.getParameter("nursery0")!=null)
+                    nurseryChoices.add("nursery0");
+                if(request.getParameter("nursery1")!=null)
+                    nurseryChoices.add("nursery1");
+                if(request.getParameter("nursery2")!=null)
+                    nurseryChoices.add("nursery2");
+                if(request.getParameter("nursery3")!=null)
+                    nurseryChoices.add("nursery3");
+                
+                ArrayList<GroupChoices> groupChoices = new ArrayList<GroupChoices>();
+                ArrayList<Group> groups = groupDAO.getAllGroups();
+                for(Group group : groups) {
+                    String wish = request.getParameter(group.toStringWish());
+                    if(!wish.equals("0")) {
+                        GroupChoices groupChoice = new GroupChoices("",group.getActivity(),group.getID_Group());
+                        groupChoices.add(groupChoice);
+                    }
+                }
+                
+                Integer cafeteriaChoice = 0;
+                if(request.getParameter("cafeteria-mon")!=null)
+                    cafeteriaChoice+=1;
+                if(request.getParameter("cafeteria-tue")!=null)
+                    cafeteriaChoice+=2;
+                if(request.getParameter("cafeteria-wed")!=null)
+                    cafeteriaChoice+=4;
+                if(request.getParameter("cafeteria-thu")!=null)
+                    cafeteriaChoice+=8;
+                if(request.getParameter("cafeteria-fri")!=null)
+                    cafeteriaChoice+=16;
+                
+                Booking booking = new Booking("", cafeteriaChoice, ID, parentLogin.getUsername(), childDiet);
+                bookingDAO.editBooking(booking, groupChoices, nurseryChoices);
             }
             displayChildForm(request, response);
         } catch(DAOException e) {
@@ -119,9 +165,18 @@ public class ChildController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         User parentLogin = (User) request.getSession().getAttribute("user");
         if(parentLogin != null) {
+            ActivityDAO activityDAO = new ActivityDAO(ds);
             ChildDAO childDAO = new ChildDAO(ds);
             DietDAO dietDAO = new DietDAO(ds);
             LevelDAO levelDAO = new LevelDAO(ds);
+            BookingDAO bookingDAO = new BookingDAO(ds);
+            GroupDAO groupDAO = new GroupDAO(ds);
+            /** Requesting the database through DAO file **/
+            List<Activity> listActivities = activityDAO.getAllActivities();
+            List<Group> groups = groupDAO.getAllGroups();
+            request.setAttribute("groups", groups);
+            /** Send the result to the view through the request attribute "activities" **/
+            request.setAttribute("activities", listActivities);
             ArrayList<Child> children = childDAO.getChildrenUser(parentLogin.getUsername());
             ArrayList<Diet> diets = dietDAO.getAll();
             ArrayList<ClassLevel> levels = levelDAO.getAll();

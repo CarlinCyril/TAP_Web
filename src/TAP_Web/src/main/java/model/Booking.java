@@ -10,21 +10,21 @@ package model;
  * @author demarquq
  */
 public class Booking {
-    public String[] cafeteriaDays;
-    public String diet;
     public String idBooking;
+    public Integer cafeteriaDays;
     public String idChild;
     public String login;
+    public String diet;
 
-    public Booking(String[] cafeteriaDays, String diet, String idBooking, String idChild, String login) {
-        this.cafeteriaDays = cafeteriaDays;
-        this.diet = diet;
+    public Booking(String idBooking, Integer cafeteriaDays, String idChild, String login, String diet) {
         this.idBooking = idBooking;
+        this.cafeteriaDays = cafeteriaDays;
         this.idChild = idChild;
         this.login = login;
+        this.diet = diet;
     }
 
-    public void setCafeteriaDays(String[] cafeteriaDays) {
+    public void setCafeteriaDays(Integer cafeteriaDays) {
         this.cafeteriaDays = cafeteriaDays;
     }
 
@@ -44,7 +44,7 @@ public class Booking {
         this.login = login;
     }
 
-    public String[] getCafeteriaDays() {
+    public Integer getCafeteriaDays() {
         return cafeteriaDays;
     }
 

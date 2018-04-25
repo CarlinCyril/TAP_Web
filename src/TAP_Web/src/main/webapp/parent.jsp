@@ -28,6 +28,8 @@
         
         <link rel="stylesheet" href="CSS/Connection.css" />
         
+        <link rel="stylesheet" href="CSS/accordion.css" />
+        
         
     </head>
     <body>
@@ -35,43 +37,35 @@
 		<script src="jquery.js"></script>
                 <%@include file="header.jsp"%>
         </header>
-        
-        <h4>Fiches Parents</h4>
+        <div class="connection-title">
+            <h4>Fiches Parents</h4>
+        </div>
 
         <div class="panel-tab">
             <div class="container-panel l-r">
                 <div class="tab">
-                  <button class="tablinks" onclick="openTab(event, 'London')">London</button>
-                  <button class="tablinks" onclick="openTab(event, 'Paris')">Paris</button>
                   <c:forEach items="${parents}" var="parent">
-                      <button class="tablinks" onclick="openTab(event, '${parent.firstName}')">${parent.firstName}</button>
+                      <button class="tablinks" onclick="openTab(event, '${parent.getFirstname()}')">${parent.getFirstname()}</button>
                   </c:forEach>
                   <button class="tablinks" onclick="openTab(event, 'add-parent')">Ajouter...</button>
                 </div>
 
-                <div id="London" class="tabcontent">
-                  <h3>London</h3>
-                  <p>London is the capital city of England.</p>
-                </div>
-
-                <div id="Paris" class="tabcontent">
-                  <h3>Paris</h3>
-                  <p>Paris is the capital of France.</p> 
-                </div>
-                  
                 <c:forEach items="${parents}" var="parent">
+                    <div id="${parent.getFirstname()}" class="tabcontent">
                     <h3>Fiche Parent</h3>
                         <form method="post" action="Parent" accept-charset="UTF-8">
-                              <input type="text" class="form-control" name="surname" placeholder="${parent.name}">
-                              <input type="text" class="form-control" name="firstName" placeholder="${parent.firstName}">
-                              <input type="text" class="form-control" name="address" placeholder="${parent.address}">
-                              <input type="text" class="form-control" name="phone" placeholder="${parent.phoneNumber}">
+                            <input type="hidden" name="parentID" value="${parent.getIdParents()}">
+                              <input type="text" class="form-control" name="surname" value="${parent.getName()}">
+                              <input type="text" class="form-control" name="firstName" value="${parent.getFirstname()}">
+                              <input type="text" class="form-control" name="address" value="${parent.getAddress()}">
+                              <input type="text" class="form-control" name="phone" value="${parent.getPhoneNumber()}">
                               <div class="btn">
                                 <input value="Modifier" class="l-btn" type="submit" name="editParent">
                                 <input type="hidden" name="action" value="editParent" />
-                                <input type="hidden" name="parentID" value=${parent.ID_Parent} />
+                                <input type="hidden" name="parentID" value=${parent.getIdParents()} />
                               </div>
                         </form>
+                    </div>
                 </c:forEach>
 
                 <div id="add-parent" class="tabcontent">
@@ -90,5 +84,7 @@
             </div>
         </div>
         <script src="JS/content-tab.js"></script>
+        <script src="JS/accordion.js"></script>
+        <script src="JS/CustomSelect.js"></script>
     </body>
 </html>

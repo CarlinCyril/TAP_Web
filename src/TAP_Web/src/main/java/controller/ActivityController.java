@@ -88,7 +88,7 @@ public class ActivityController extends HttpServlet {
                 displayAllActivities(request, response, activityDAO);
             else if(action == "detailActivity") {
                 String activityName = request.getParameter("activityName");
-                displayDetailActivity(request, response, activityName, activityDAO);
+                //displayDetailActivity(request, response, activityName, activityDAO);
             }
         } catch(DAOException e) {
             erreurBD(request, response, e);
@@ -99,8 +99,11 @@ public class ActivityController extends HttpServlet {
     private void displayAllActivities(HttpServletRequest request,
                 HttpServletResponse response, ActivityDAO activityDAO)
             throws ServletException, IOException {
+        GroupDAO groupDAO = new GroupDAO(ds);
         /** Requesting the database through DAO file **/
         List<Activity> listActivities = activityDAO.getAllActivities();
+        List<Group> groups = groupDAO.getAllGroups();
+        request.setAttribute("groups", groups);
         /** Send the result to the view through the request attribute "activities" **/
         request.setAttribute("activities", listActivities);
         request.getRequestDispatcher("/WEB-INF/Catalogue.jsp").forward(request, response);
@@ -139,14 +142,4 @@ public class ActivityController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void displayDetailActivity(HttpServletRequest request, 
-            HttpServletResponse response, String activityName, ActivityDAO activityDAO) {
-        GroupDAO groupDAO = new GroupDAO(ds);
-        Activity activity = activityDAO.getActivity(activityName);
-        List<Group> groups = groupDAO.getGroupsDetail(activity);
-        request.setAttribute("activity", activity);
-        request.setAttribute("groups", groups);
-        request.getRequestDispatcher("WEB-INF/DetailActivity.jsp");
-    }
 }

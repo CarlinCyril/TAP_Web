@@ -104,10 +104,10 @@
             <c:forEach items="${activities}" var="activity">
                 <tr class="accordion">
                     <th colspan="2">${activity.getName()}</th>
-                    <th colspan="2">${activity.getPrice()}</th>
+                    <th colspan="2">${activity.getPrice()}€</th>
                 </tr>
                 <c:forEach items="${groups}" var="group">
-                    <c:if test="${group.getActivity().getName().equals(activity.getName())}">
+                    <c:if test="${group.getActivity() == activity.getID_Activity()}">
                         <tr class="panel" style="display:none">
                             <td>${group.getDayOfTheWeek()}</td>
                             <td>${group.getStartTime()}/${group.getEndTime()}</td>

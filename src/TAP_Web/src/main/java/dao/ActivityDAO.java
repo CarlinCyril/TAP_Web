@@ -38,7 +38,8 @@ public class ActivityDAO extends AbstractDataBaseDAO {
                         "SELECT * FROM Activity");
                 resultSet = statement.executeQuery();
                 while(resultSet.next()) {
-                    Activity newActivity = new Activity(resultSet.getNString(2), 
+                    Activity newActivity = new Activity(resultSet.getNString(1),
+                            resultSet.getNString(2), 
                             resultSet.getInt(3));
                     listAct.add(newActivity);
                 }
@@ -66,7 +67,8 @@ public class ActivityDAO extends AbstractDataBaseDAO {
                 statement.setString(1, activityName);
                 resultSet = statement.executeQuery();
                 while(resultSet.next()) {
-                    newActivity = new Activity(resultSet.getNString(2), 
+                    newActivity = new Activity(resultSet.getNString(1),
+                            resultSet.getNString(2), 
                             resultSet.getInt(3));
                 }
         } catch(SQLException se){

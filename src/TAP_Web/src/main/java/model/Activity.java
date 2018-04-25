@@ -13,12 +13,19 @@ import java.util.List;
  * @author cyrilcarlin
  */
 public class Activity {
+
+    private String ID_Activity;
     private String name;
     private int price;
 
-    public Activity(String name, int price) {
+    public Activity(String ID_Activity, String name, int price) {
+        this.ID_Activity = ID_Activity;
         this.name = name;
         this.price = price;
+    }
+
+    public String getID_Activity() {
+        return ID_Activity;
     }
 
     public String getName() {

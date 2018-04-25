@@ -15,10 +15,10 @@
 			<li><a class="title" href="Activity">ACTIVITES </a></li>
 			<li><a class="title" href="config.html">CALENDRIER </a></li>
                         <c:if test="${login}">
-                            <li><a class="title" href="parent.jsp">PARENTS </a></li>
+                            <li><a class="title" href="Parent">PARENTS </a></li>
                         </c:if>
                         <c:if test="${login}">
-                            <li><a class="title" href="child.jsp">ENFANTS </a></li>
+                            <li><a class="title" href="Child">ENFANTS </a></li>
                         </c:if>
 		</ul>
 	</div>

@@ -112,7 +112,7 @@ public class LoginController extends HttpServlet {
 
     private void logIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getSession().getAttribute("user") != null)
-            request.getRequestDispatcher("/WEB-INF/Catalogue.jsp").forward(request, response);
+            response.sendRedirect("Activity");
         else {
             ConnexionDAO userDAO = new ConnexionDAO(ds);
             PrintWriter out = response.getWriter();
@@ -124,7 +124,7 @@ public class LoginController extends HttpServlet {
             else {
                 request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("login", true);
-                request.getRequestDispatcher("/WEB-INF/Catalogue.jsp").forward(request, response);
+                response.sendRedirect("Activity");
             }
         }
     }

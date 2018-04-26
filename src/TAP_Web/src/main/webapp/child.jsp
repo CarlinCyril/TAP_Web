@@ -93,13 +93,13 @@
                     </div>
                     <button class="accordion">Inscriptions</button>
                     <div class="panel" style="display:none">
-                    <c:set var="hasBooked" value="${not empty child.getBooking()}"/>
+                    <c:set var="hasBooked" value="${not empty child.getReservation()}"/>
                         <form method="post" action="Child" accept-charset="UTF-8">
                             <div id="input-garderie">
-                                <input type="checkbox" name="nursery0" value="true" <c:if test="${hasBooked && child.getBooking().checkNursery('nursery0')}">checked</c:if>>La garderie du matin : de 7h00 – 8h30<br>
-                                <input type="checkbox" name="nursery1" value="true" <c:if test="${hasBooked && child.getBooking().checkNursery('nursery1')}">checked</c:if>>Garderie du soir 1 : 15h45 – 16h30<br>
-                                <input type="checkbox" name="nursery2" value="true" <c:if test="${hasBooked && child.getBooking().checkNursery('nursery2')}">checked</c:if>>Garderie du soir 2 : 16h30 – 17h15<br>
-                                <input type="checkbox" name="nursery3" value="true" <c:if test="${hasBooked && child.getBooking().checkNursery('nursery3')}">checked</c:if>>Garderie du soir 3 : 17h15 – 18h00<br>
+                                <input type="checkbox" name="nursery0" value="true" <c:if test="${hasBooked && child.getReservation().checkNursery('nursery0')}">checked</c:if>>La garderie du matin : de 7h00 – 8h30<br>
+                                <input type="checkbox" name="nursery1" value="true" <c:if test="${hasBooked && child.getReservation().checkNursery('nursery1')}">checked</c:if>>Garderie du soir 1 : 15h45 – 16h30<br>
+                                <input type="checkbox" name="nursery2" value="true" <c:if test="${hasBooked && child.getReservation().checkNursery('nursery2')}">checked</c:if>>Garderie du soir 2 : 16h30 – 17h15<br>
+                                <input type="checkbox" name="nursery3" value="true" <c:if test="${hasBooked && child.getReservation().checkNursery('nursery3')}">checked</c:if>>Garderie du soir 3 : 17h15 – 18h00<br>
                             </div>
                             <div id="input-cafeteria">
                                 <table>
@@ -113,20 +113,20 @@
                                     </tr>
                                     <tr>
                                         <td>Cantine</td>
-                                        <td><input type="checkbox" name="cafeteria-mon" value="1" <c:if test="${hasBooked && child.getBooking().checkCafeteria(1)}">checked</c:if>></td>
-                                        <td><input type="checkbox" name="cafeteria-tue" value="2" <c:if test="${hasBooked && child.getBooking().checkCafeteria(2)}">checked</c:if>></td>
-                                        <td><input type="checkbox" name="cafeteria-wed" value="4" <c:if test="${hasBooked && child.getBooking().checkCafeteria(4)}">checked</c:if>></td>
-                                        <td><input type="checkbox" name="cafeteria-thu" value="8" <c:if test="${hasBooked && child.getBooking().checkCafeteria(8)}">checked</c:if>></td>
-                                        <td><input type="checkbox" name="cafeteria-fri" value="16" <c:if test="${hasBooked && child.getBooking().checkCafeteria(16)}">checked</c:if>></td>
+                                        <td><input type="checkbox" name="cafeteria-mon" value="1" <c:if test="${hasBooked && child.getReservation().checkCafeteria(1)}">checked</c:if>></td>
+                                        <td><input type="checkbox" name="cafeteria-tue" value="2" <c:if test="${hasBooked && child.getReservation().checkCafeteria(2)}">checked</c:if>></td>
+                                        <td><input type="checkbox" name="cafeteria-wed" value="4" <c:if test="${hasBooked && child.getReservation().checkCafeteria(4)}">checked</c:if>></td>
+                                        <td><input type="checkbox" name="cafeteria-thu" value="8" <c:if test="${hasBooked && child.getReservation().checkCafeteria(8)}">checked</c:if>></td>
+                                        <td><input type="checkbox" name="cafeteria-fri" value="16" <c:if test="${hasBooked && child.getReservation().checkCafeteria(16)}">checked</c:if>></td>
                                     </tr>
                                 </table>
                             </div>
                       <table id="catalogue">
-                      <c:if test="${empty child.getBooking()}">
+                      <c:if test="${empty child.getReservation()}">
                             <c:forEach items="${activities}" var="activity">
                                 <tr class="accordion">
                                     <th colspan="2">${activity.getName()}</th>
-                                    <th colspan="2">${activity.getPrice()}</th>
+                                    <th colspan="2">${activity.getPrice()}€</th>
                                 </tr>
                                 <c:forEach items="${groups}" var="group">
                                     <c:if test="${group.getActivity().equals(activity.getID_Activity())}">
@@ -149,22 +149,22 @@
                                 </c:forEach>
                             </c:forEach>
                         </c:if>
-                      <c:if test="${not empty child.getBooking()}">
+                      <c:if test="${not empty child.getReservation()}">
                           <c:forEach items="${activities}" var="activity">
-                              <c:if test="${child.getBooking().getBooking().getIdActivity() == activity.getID_Activity()}">
+                              <c:if test="${child.getReservation().checkActivity(activity.getID_Activity())}">
                                 <tr class="accordion">
                                     <th colspan="2">${activity.getName()}</th>
-                                    <th colspan="2">${activity.getPrice()}</th>
+                                    <th colspan="2">${activity.getPrice()}€</th>
                                 </tr>
                                 <c:forEach items="${groups}" var="group">
-                                    <c:if test="${group.getActivity().equals(activity.getID_Activity()) && child.getBooking().getBooking().checkGroup(group.getID_Group())}">
+                                    <c:if test="${group.getActivity().equals(activity.getID_Activity()) && child.getReservation().checkGroup(group.getID_Group())}">
                                         <tr class="panel" style="display:none">
                                             <td>${group.getDayOfTheWeek()}</td>
                                             <td>${group.getStartTime()}/${group.getEndTime()}</td>
                                             <td>${group.toStringLevels()}</td>
                                             <td>
                                                 <select name="${group.toStringWish()}">
-                                                    <option value="0" selected>- Choix -</option>
+                                                    <option value="0" selected>- Accepté(e) -</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -174,12 +174,14 @@
                             </c:forEach>
                       </c:if>
                         </table>
+                        <c:if test="${empty child.getReservation()}">
                           <div class="btn">
                             <input value="Réserver" class="l-btn" type="submit" name="booking">
                             <input type="hidden" name="childID" value="${child.getIdChild()}">
                             <input type="hidden" name="diet" value="${child.getDiet()}">
                             <input type="hidden" name="action" value="bookChild" />
                           </div>
+                        </c:if>
                       </form>
                     </div>
                     </div>
@@ -195,7 +197,7 @@
                         <div class="input-child">
                           <input type="text" class="form-control" name="surname" placeholder="Nom de famille...">
                           <input type="text" class="form-control" name="firstName" placeholder="Prénom...">
-                          <input type="date" class="form-control" name="birthdate">
+                          <input type="date" class="form-control" name="birthdate" placeholder="Date de naissance (aaaa-mm-jj)">
                         </div>
                         <div class="custom-select2">
                               <p>Sexe : </p>

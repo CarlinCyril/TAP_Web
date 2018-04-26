@@ -100,22 +100,28 @@ public class BookingDAO extends AbstractDataBaseDAO {
                 
                 if(newBooking != null) {
                     statement = connection.prepareStatement(
-                            "select * from groupchoices" +
-    "    inner join nurserychoices on groupchoices.ID_BOOKING = nurserychoices.ID_BOOKING" +
-    "    where groupchoices.ID_BOOKING=?");
+                            "select * from groupchoices where groupchoices.ID_BOOKING=?");
                     statement.setString(1, newBooking.getIdBooking());
                     resultSet = statement.executeQuery();
                     while(resultSet.next()) {
                         GroupChoices newGroup = new GroupChoices(resultSet.getNString(1),
                                 resultSet.getString(2), 
                                 resultSet.getNString(3));
-                        NurseryChoices newNursery = new NurseryChoices(resultSet.getNString(4),
-                                resultSet.getNString(5));
                         groups.add(newGroup);
-                        nurseries.add(newNursery);
                     }
+                    
+                    statement = connection.prepareStatement(
+                            "select * from nurserychoices where ID_BOOKING=?");
+                    statement.setString(1, newBooking.getIdBooking());
+                    resultSet = statement.executeQuery();
+                    while(resultSet.next()) {
+                        NurseryChoices newNursery = new NurseryChoices(resultSet.getNString(1),
+                                resultSet.getNString(2));
+                        nurseries.add(newNursery);                        
+                    }
+                    
                     ReservationChild newReservation = new ReservationChild(newBooking, groups, nurseries);
-                    child.setBooking(newReservation);
+                    child.setReservation(newReservation);
                 }
             }
                 

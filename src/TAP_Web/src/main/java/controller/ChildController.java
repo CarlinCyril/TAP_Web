@@ -43,6 +43,8 @@ public class ChildController extends HttpServlet {
 
     @Resource(name = "jdbc/tap")
     private DataSource ds;
+    
+    private Integer IDChild = 0;
 
     /* pages d’erreurs */
     private void invalidParameters(HttpServletRequest request,
@@ -97,7 +99,7 @@ public class ChildController extends HttpServlet {
                 String childGender = request.getParameter("gender");
                 String childDiet = request.getParameter("diet");
                 String childLevel = request.getParameter("level");
-                String ID =Integer.toString(1+children.size());
+                String ID =Integer.toString(1+childDAO.getChildrenID());
                 Child child = new Child(ID, parentLogin.getUsername(), childName, childFirstname, 
                         childBirthdate, childGender, childDiet, childLevel);
                 childDAO.addChild(child);
@@ -134,7 +136,7 @@ public class ChildController extends HttpServlet {
                 ArrayList<Group> groups = groupDAO.getAllGroups();
                 for(Group group : groups) {
                     String wish = request.getParameter(group.toStringWish());
-                    if(!wish.equals("0")) {
+                    if(wish != null && !wish.equals("0")) {
                         GroupChoices groupChoice = new GroupChoices("",group.getActivity(),group.getID_Group());
                         groupChoices.add(groupChoice);
                     }

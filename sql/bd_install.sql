@@ -159,7 +159,7 @@ INSERT INTO Users VALUES('User39', 'azer', TO_DATE('2018/03/19', 'yyyy/mm/dd'));
 
 
 INSERT INTO InfoParent VALUES('1','User1','dupont', 'karen1', '0601234567', '1 rue de la porte' );
-INSERT INTO InfoParent VALUES('2','User2','dupont', 'karen2', '0601534567', '2 rue de la porte' );
+INSERT INTO InfoParent VALUES('1','User2','dupont', 'karen2', '0601534567', '2 rue de la porte' );
 INSERT INTO InfoParent VALUES('3','User3','dupont', 'karen3', '0621234577', '3 rue de la porte' );
 INSERT INTO InfoParent VALUES('4','User4','dupont', 'karen4', '0601254567', '4 rue de la porte' );
 INSERT INTO InfoParent VALUES('5','User5','dupont', 'karen5', '0601234567', '5 rue de la porte' );
@@ -214,7 +214,7 @@ INSERT INTO Nursery VALUES('nursery3', '17h15', '18h30', 50);
 
 
 
-INSERT INTO Period VALUES('1', TO_DATE('2017/09/04', 'yyyy/mm/dd'), TO_DATE('2017/12/22', 'yyyy/mm/dd'));
+INSERT INTO PeriodYear VALUES('1', TO_DATE('2017/09/04', 'yyyy/mm/dd'), TO_DATE('2017/12/22', 'yyyy/mm/dd'));
 
 
 INSERT INTO Activity VALUES('1', 'Gym', 50);

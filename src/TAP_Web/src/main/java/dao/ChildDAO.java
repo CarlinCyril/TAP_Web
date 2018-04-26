@@ -23,6 +23,29 @@ public class ChildDAO extends AbstractDataBaseDAO {
         super(ds);
     }
     
+    public Integer getChildrenID() {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Integer result = 0;
+        try {
+                connection = dataSource.getConnection();
+                statement = connection.prepareStatement(
+                        "SELECT COUNT(*) FROM Child");
+                resultSet = statement.executeQuery();
+                while(resultSet.next()) {
+                    result = resultSet.getInt(1);
+                }
+        } catch(SQLException se){
+                System.out.println(se.getMessage());
+        } finally {
+                try { resultSet.close(); } catch(Exception e){ /* ignored */}
+                try { statement.close(); } catch(Exception e){ /* ignored */}
+                try { connection.close(); } catch(Exception e){ /* ignored */}
+        }
+        return result;
+    }
+    
     public ArrayList<Child> getChildrenUser(String username) {
         Connection connection = null;
         PreparedStatement statement = null;

@@ -20,6 +20,7 @@ public class Child {
     private Date birthdate;
     private String gender;
     private String level;
+    private ReservationChild booking = null;
 
     public Child(String idChild, String login, String name, String firstName, 
             Date birthdate, String gender, String diet, String level) {
@@ -31,6 +32,14 @@ public class Child {
         this.birthdate = birthdate;
         this.gender = gender;
         this.level = level;
+    }
+
+    public void setBooking(ReservationChild booking) {
+        this.booking = booking;
+    }
+
+    public ReservationChild getBooking() {
+        return booking;
     }
 
     public void setLogin(String login) {

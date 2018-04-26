@@ -31,6 +31,7 @@ import model.Diet;
 import model.ClassLevel;
 import model.Group;
 import model.GroupChoices;
+import model.ReservationChild;
 import model.User;
 
 /**
@@ -180,6 +181,7 @@ public class ChildController extends HttpServlet {
             ArrayList<Child> children = childDAO.getChildrenUser(parentLogin.getUsername());
             ArrayList<Diet> diets = dietDAO.getAll();
             ArrayList<ClassLevel> levels = levelDAO.getAll();
+            bookingDAO.getBookingsChildren(children);
             request.setAttribute("diets", diets);
             request.setAttribute("children", children);
             request.setAttribute("levels", levels);

@@ -13,9 +13,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.sql.DataSource;
 import model.Booking;
+import model.Child;
+import model.Group;
 import model.GroupChoices;
 import model.Nursery;
 import model.NurseryChoices;
+import model.ReservationChild;
 
 /**
  *
@@ -69,6 +72,90 @@ public class BookingDAO extends AbstractDataBaseDAO {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
                 try { connection.close(); } catch(Exception e){ /* ignored */}
+        }
+    }
+
+    public void getBookingsChildren(ArrayList<Child> children) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = dataSource.getConnection();
+            for(Child child : children) {
+                Booking newBooking = null;
+                ArrayList<GroupChoices> groups = new ArrayList<GroupChoices>();
+                ArrayList<NurseryChoices> nurseries = new ArrayList<NurseryChoices>();
+                statement = connection.prepareStatement("SELECT * FROM Booking "
+                        + "WHERE id_child=? AND login=?");
+                statement.setString(1, child.getIdChild());
+                statement.setString(2, child.getLogin());
+                resultSet = statement.executeQuery();
+                while(resultSet.next()) {
+                    newBooking = new Booking(resultSet.getNString(1),
+                            resultSet.getInt(2), 
+                            resultSet.getNString(3),
+                            resultSet.getNString(4),
+                            resultSet.getNString(5));
+                }
+                
+                if(newBooking != null) {
+                    statement = connection.prepareStatement(
+                            "select * from groupchoices" +
+    "    inner join nurserychoices on groupchoices.ID_BOOKING = nurserychoices.ID_BOOKING" +
+    "    where groupchoices.ID_BOOKING=?");
+                    statement.setString(1, newBooking.getIdBooking());
+                    resultSet = statement.executeQuery();
+                    while(resultSet.next()) {
+                        GroupChoices newGroup = new GroupChoices(resultSet.getNString(1),
+                                resultSet.getString(2), 
+                                resultSet.getNString(3));
+                        NurseryChoices newNursery = new NurseryChoices(resultSet.getNString(4),
+                                resultSet.getNString(5));
+                        groups.add(newGroup);
+                        nurseries.add(newNursery);
+                    }
+                    ReservationChild newReservation = new ReservationChild(newBooking, groups, nurseries);
+                    child.setBooking(newReservation);
+                }
+            }
+                
+        } catch(SQLException se){
+                System.out.println(se.getMessage());
+        } finally {
+                try { resultSet.close(); } catch(Exception e){ /* ignored */}
+                try { statement.close(); } catch(Exception e){ /* ignored */}
+                try { connection.close(); } catch(Exception e){ /* ignored */}
+        }
+    }
+    
+    public ArrayList<GroupChoices> getGroupsChildren(ArrayList<Booking> bookings) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        boolean valid = false;
+        ArrayList<GroupChoices> groups = new ArrayList<GroupChoices>();
+        try {
+            connection = dataSource.getConnection();
+            for(Booking booking : bookings) {
+                statement = connection.prepareStatement(
+                        "SELECT * FROM GroupChoices WHERE ID_Booking=?");
+                statement.setString(1, booking.getIdBooking());
+                resultSet = statement.executeQuery();
+                while(resultSet.next()) {
+                    GroupChoices newGroup = new GroupChoices(resultSet.getNString(1),
+                            resultSet.getString(2), 
+                            resultSet.getNString(3));
+                    groups.add(newGroup);
+                }
+            }
+                
+        } catch(SQLException se){
+                System.out.println(se.getMessage());
+        } finally {
+                try { resultSet.close(); } catch(Exception e){ /* ignored */}
+                try { statement.close(); } catch(Exception e){ /* ignored */}
+                try { connection.close(); } catch(Exception e){ /* ignored */}
+                return null;
         }
     }
 }

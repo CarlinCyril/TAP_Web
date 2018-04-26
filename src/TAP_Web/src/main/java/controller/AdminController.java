@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +22,7 @@ import javax.annotation.Resource;
  *
  * @author ensimag
  */
-@WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
+@WebServlet(name = "AdminController", urlPatterns = {"/admin"})
 public class AdminController extends HttpServlet {
 	
     @Resource(name = "jdbc/tap")
@@ -67,6 +68,7 @@ public class AdminController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -107,6 +109,19 @@ public class AdminController extends HttpServlet {
                 		String id = request.getParameter("id");
                 		String cost = request.getParameter("cost");
                 		editDAO.setCost(id, Integer.parseInt(cost));
+                	}else if(action.equals("addGroup")) {
+                	    String ID_Group = "0";
+                	    String ID_Activity = request.getParameter("activity");
+                	    String dayOfTheWeek = request.getParameter("days");
+                	    String startTime = request.getParameter("start");
+                	    String endTime = request.getParameter("end");
+                	    Integer enrollment = Integer.parseInt(request.getParameter("enrol"));
+                	    ArrayList<ClassLevel> levels = new ArrayList<ClassLevel>();
+                	    Group group = new Group(ID_Group, ID_Activity, dayOfTheWeek, startTime, endTime, enrollment, levels);
+                		editDAO.addGroup(group);
+                	}else if(action.equals("delGroup")) {
+                		String id = request.getParameter("id");
+                		editDAO.delGroup(id);
                 	}
                // request.getRequestDispatcher("admin.jsp").forward(request, response);
                 } catch(DAOException e) {

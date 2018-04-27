@@ -60,7 +60,7 @@
                                     <input type="hidden" name="childID" value="${child.getIdChild()}">
                                   <input type="text" class="form-control" name="surname" value="${child.getName()}">
                                   <input type="text" class="form-control" name="firstName" value="${child.getFirstName()}">
-                                  <input type="date" class="form-control" name="birthdate">
+                                  <input type="date" class="form-control" name="birthdate" value="${child.getBirthdateString()}">
                                 </div>
                                   <div class="custom-select2">
                                         <p>Sexe : </p>
@@ -174,7 +174,7 @@
                             </c:forEach>
                       </c:if>
                         </table>
-                        <c:if test="${empty child.getReservation()}">
+                        <c:if test="${empty child.getReservation() && bookTAP}">
                           <div class="btn">
                             <input value="Réserver" class="l-btn" type="submit" name="booking">
                             <input type="hidden" name="childID" value="${child.getIdChild()}">
@@ -184,15 +184,15 @@
                         </c:if>
                       </form>
                     </div>
-                    </div>
-                    <c:if test="${not empty factures}">
+                    <c:if test="${editBills}">
                     <button class="accordion">Facture</button>
                     <div class="panel" style="display:none">
                         <table id="bill">
                             <tr>
                                 <th>Référence</th>
                                 <th>Date d'émission</th>
-                                <th>Prix total</th>
+                                <th>Prix total(€)</th>
+                                <th>Enfant concerné</th>
                             </tr>
                             <c:forEach items="${bills}" var="bill">
                                 <c:if test="${bill.getIdBooking().equals(child.getReservation().getBooking().getIdBooking())}">
@@ -200,12 +200,15 @@
                                     <td>${bill.getBillNumber()}</td>
                                     <td>${bill.getDate()}</td>
                                     <td>${bill.getTotalPrice()}</td>
+                                    <td>${child.getFirstName()} ${child.getName()}</td>
                                 </tr>
                                 </c:if>
                             </c:forEach>
                         </table>
+                        <button class="print" onclick="printData()">Imprimer</button>
                     </div>
                     </c:if>
+                    </div>
                 </c:forEach>
                     
                 
@@ -255,5 +258,6 @@
         <script src="JS/content-tab.js"></script>
         <script src="JS/accordion.js"></script>
         <script src="JS/CustomSelect.js"></script>
+        <script src="JS/printBill.js"></script>
     </body>
 </html>

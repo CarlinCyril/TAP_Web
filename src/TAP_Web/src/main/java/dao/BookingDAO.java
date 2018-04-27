@@ -30,14 +30,14 @@ public class BookingDAO extends AbstractDataBaseDAO {
         super(ds);
     }
     
-    public void editBooking(Booking booking, ArrayList<GroupChoices> groupChoices, 
+    public String addBooking(Booking booking, ArrayList<GroupChoices> groupChoices, 
             ArrayList<String> nurseryChoices) {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        
+        String ID = null;
+
         try {
-            String ID = null;
             connection = dataSource.getConnection();
             statement = connection.prepareStatement("SELECT COUNT(*) FROM Booking");
             ResultSet resultLevel = statement.executeQuery();
@@ -73,6 +73,7 @@ public class BookingDAO extends AbstractDataBaseDAO {
                 try { statement.close(); } catch(Exception e){ /* ignored */}
                 try { connection.close(); } catch(Exception e){ /* ignored */}
         }
+        return ID;
     }
 
     public void getBookingsChildren(ArrayList<Child> children) {

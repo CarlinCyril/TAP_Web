@@ -202,6 +202,20 @@ table#catalogue tr.accordion {
     height: 2em;
 }
 
-table#catalogue th {
+table#bill {
+    margin-top: 1em;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+table#bill th {
+    border: 1px solid #ddd;
+}
+
+table#bill th, table#catalogue th {
     padding: 1.1em;
+}
+
+button.print {
+    margin: 1em;
 }

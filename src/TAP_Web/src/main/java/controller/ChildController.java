@@ -13,10 +13,12 @@ import dao.DAOException;
 import dao.DietDAO;
 import dao.GroupDAO;
 import dao.LevelDAO;
+import dao.PeriodYearDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -33,6 +35,7 @@ import model.Diet;
 import model.ClassLevel;
 import model.Group;
 import model.GroupChoices;
+import model.PeriodYear;
 import model.ReservationChild;
 import model.User;
 
@@ -47,6 +50,10 @@ public class ChildController extends HttpServlet {
     private DataSource ds;
     
     public Boolean editBills = false;
+    public Boolean bookTAP = false;
+    private final Integer PRICE_CAFETERIA = 5;
+    private final Integer DAYS_BOOKING = 7;
+    private final Integer DAYS_BILL = 7;
     
     /* pages d’erreurs */
     private void invalidParameters(HttpServletRequest request,
@@ -121,6 +128,7 @@ public class ChildController extends HttpServlet {
             else if(action.equals("bookChild")) {
                 GroupDAO groupDAO = new GroupDAO(ds);
                 BookingDAO bookingDAO = new BookingDAO(ds);
+                BillDAO billDAO = new BillDAO(ds);
                 String childDiet = request.getParameter("diet");
                 String ID = request.getParameter("childID");
                 
@@ -145,19 +153,33 @@ public class ChildController extends HttpServlet {
                 }
                 
                 Integer cafeteriaChoice = 0;
-                if(request.getParameter("cafeteria-mon")!=null)
+                Integer priceCafeteria = 0;
+                if(request.getParameter("cafeteria-mon")!=null) {
                     cafeteriaChoice+=1;
-                if(request.getParameter("cafeteria-tue")!=null)
+                    priceCafeteria += PRICE_CAFETERIA;
+                }
+                if(request.getParameter("cafeteria-tue")!=null) {
                     cafeteriaChoice+=2;
-                if(request.getParameter("cafeteria-wed")!=null)
+                    priceCafeteria += PRICE_CAFETERIA;
+                }
+                if(request.getParameter("cafeteria-wed")!=null){
                     cafeteriaChoice+=4;
-                if(request.getParameter("cafeteria-thu")!=null)
-                    cafeteriaChoice+=8;
-                if(request.getParameter("cafeteria-fri")!=null)
+                    priceCafeteria += PRICE_CAFETERIA;
+                }
+                if(request.getParameter("cafeteria-thu")!=null) {
+                   cafeteriaChoice+=8;
+                   priceCafeteria += PRICE_CAFETERIA;
+                }
+                if(request.getParameter("cafeteria-fri")!=null) {
                     cafeteriaChoice+=16;
+                    priceCafeteria += PRICE_CAFETERIA;
+                }
                 
                 Booking booking = new Booking("", cafeteriaChoice, ID, parentLogin.getUsername(), childDiet);
-                bookingDAO.editBooking(booking, groupChoices, nurseryChoices);
+                String IdBooking = bookingDAO.addBooking(booking, groupChoices, nurseryChoices);
+                if(IdBooking != null) {
+                    billDAO.createBill(IdBooking, parentLogin.getUsername(), priceCafeteria);
+                }
             }
             else if(action=="missingChild") {
                 
@@ -173,7 +195,22 @@ public class ChildController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         User parentLogin = (User) request.getSession().getAttribute("user");
         if(parentLogin != null) {
-            
+            Calendar calendar = Calendar.getInstance();
+            Date today = new java.sql.Date(calendar.getTime().getTime());
+            PeriodYearDAO periodDAO = new PeriodYearDAO(ds);
+            PeriodYear currentPeriod = periodDAO.getcurrentPeriod();
+            if(currentPeriod != null) {
+                calendar.setTime(currentPeriod.getEndDay());
+                calendar.add(Calendar.DATE, -DAYS_BILL);
+                Date firstDayBill = new Date(calendar.getTime().getTime());
+                calendar.setTime(currentPeriod.getStartDay());
+                calendar.add(Calendar.DATE, DAYS_BOOKING);
+                Date lastDayBooking = new Date(calendar.getTime().getTime());
+                if(today.before(currentPeriod.getEndDay()) && today.after(firstDayBill))
+                    editBills = true;
+                if(today.after(currentPeriod.getStartDay()) && today.before(lastDayBooking))
+                    bookTAP = true;
+            }
             
             ActivityDAO activityDAO = new ActivityDAO(ds);
             ChildDAO childDAO = new ChildDAO(ds);
@@ -182,7 +219,7 @@ public class ChildController extends HttpServlet {
             BookingDAO bookingDAO = new BookingDAO(ds);
             GroupDAO groupDAO = new GroupDAO(ds);
             /** Requesting the database through DAO file **/
-            List<Activity> listActivities = activityDAO.getAllActivities();
+            List<Activity> listActivities = activityDAO.getAllActivitiesPeriod();
             List<Group> groups = groupDAO.getAllGroups();
             request.setAttribute("groups", groups);
             /** Send the result to the view through the request attribute "activities" **/
@@ -191,15 +228,17 @@ public class ChildController extends HttpServlet {
             ArrayList<Diet> diets = dietDAO.getAll();
             ArrayList<ClassLevel> levels = levelDAO.getAll();
             bookingDAO.getBookingsChildren(children);
+            request.setAttribute("editBills", editBills);
+            request.setAttribute("bookTAP", bookTAP);
             request.setAttribute("diets", diets);
             request.setAttribute("children", children);
             request.setAttribute("levels", levels);
-            request.getRequestDispatcher("child.jsp").forward(request, response);
             if(editBills) {
                 BillDAO billDAO = new BillDAO(ds);
-                ArrayList<Bill> bills = billDAO.retrieveBills(children);
+                ArrayList<Bill> bills = billDAO.retrieveBills(children, today);
                 request.setAttribute("bills", bills);
             }
+            request.getRequestDispatcher("child.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("connection.jsp").forward(request, response);
         }

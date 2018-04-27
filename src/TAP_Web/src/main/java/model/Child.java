@@ -6,6 +6,8 @@
 package model;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -108,5 +110,9 @@ public class Child {
         this.level = level;
     }
     
-    
+    public String getBirthdateString() {
+        DateFormat df = new SimpleDateFormat("yyyy-dd-MM");
+        String text = df.format(birthdate);
+        return text;
+    }
 }

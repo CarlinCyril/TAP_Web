@@ -107,7 +107,7 @@
                     <th colspan="2">${activity.getPrice()}€</th>
                 </tr>
                 <c:forEach items="${groups}" var="group">
-                    <c:if test="${group.getActivity() == activity.getID_Activity()}">
+                    <c:if test="${group.getActivity() == activity.getID_Activity() }">
                         <tr class="panel" style="display:none">
                             <td>${group.getDayOfTheWeek()}</td>
                             <td>${group.getStartTime()}/${group.getEndTime()}</td>

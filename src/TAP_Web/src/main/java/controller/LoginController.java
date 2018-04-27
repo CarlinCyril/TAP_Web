@@ -114,7 +114,6 @@ public class LoginController extends HttpServlet {
             response.sendRedirect("Activity");
         else {
             ConnexionDAO userDAO = new ConnexionDAO(ds);
-            PrintWriter out = response.getWriter();
             User user = userDAO.login(request.getParameter("login"), request.getParameter("password"));
             if(user == null) {
                 request.setAttribute("login", false);

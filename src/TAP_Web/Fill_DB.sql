@@ -1,15 +1,10 @@
-INSERT INTO Users VALUES('User1', 'azer', DATE('2003-07-09'));
-INSERT INTO Users VALUES('User2', 'azer', DATE('2003-07-09'));
-INSERT INTO Users VALUES('User3', 'azer', DATE('2003-07-09'));
-INSERT INTO Users VALUES('User4', 'azer', DATE('2003-07-09'));
-INSERT INTO Users VALUES('User5', 'azer', DATE('2003-07-09'));
-/*
-INSERT INTO Users VALUES('User6', 'azer', TO_DATE('2018/03/17', 'yyyy/mm/dd'));
-INSERT INTO Users VALUES('User7', 'azer', TO_DATE('2018/03/16', 'yyyy/mm/dd'));
-INSERT INTO Users VALUES('User8', 'azer', TO_DATE('2018/03/15', 'yyyy/mm/dd'));
-INSERT INTO Users VALUES('User9', 'azer', TO_DATE('2018/03/22', 'yyyy/mm/dd'));
-INSERT INTO Users VALUES('User10', 'azer', TO_DATE('2018/03/23', 'yyyy/mm/dd'));
-*/
+
+INSERT INTO Users VALUES('User1', 'azer', TO_DATE('2018/03/17', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User2', 'azer', TO_DATE('2018/03/16', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User3', 'azer', TO_DATE('2018/03/15', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User4', 'azer', TO_DATE('2018/03/22', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('User5', 'azer', TO_DATE('2018/03/23', 'yyyy/mm/dd'));
+
 
 INSERT INTO InfoParent VALUES('1','User1','Dupont', 'Dominique', '0601234567', '1 rue de la porte' );
 INSERT INTO InfoParent VALUES('1','User2','Martin', 'Michel', '0601534567', '2 rue de la porte' );
@@ -33,30 +28,20 @@ INSERT INTO ClassLevel VALUES('CE2');
 INSERT INTO ClassLevel VALUES('CM1');
 INSERT INTO ClassLevel VALUES('CM2');
 
-/*
 INSERT INTO Child VALUES('1', 'User1', 'Dupont', 'Kevin', TO_DATE('2010/03/09', 'yyyy/mm/dd'), 'M', '1', 'CP');
 INSERT INTO Child VALUES('2', 'User1', 'Dupont', 'Jean', TO_DATE('2009/03/09', 'yyyy/mm/dd'), 'M', '6', 'CE1');
 INSERT INTO Child VALUES('1', 'User2', 'Martin', 'Lola', TO_DATE('2007/03/09', 'yyyy/mm/dd'), 'F', '3', 'CM1');
 INSERT INTO Child VALUES('1', 'User3', 'Dubois', 'Mathilde', TO_DATE('2014/03/09', 'yyyy/mm/dd'), 'F', '4', 'MS');
 INSERT INTO Child VALUES('2', 'User3', 'Dubois', 'Thomas', TO_DATE('2015/03/09', 'yyyy/mm/dd'), 'M', '2', 'PS');
 INSERT INTO Child VALUES('3', 'User3', 'Dubois', 'Matthieu', TO_DATE('2009/04/09', 'yyyy/mm/dd'), 'M', '3', 'CE2');
-*/
-INSERT INTO Child VALUES('1', 'User1', 'Dupont', 'Kevin', DATE('2003-07-09'), 'M', '1', 'CP');
-INSERT INTO Child VALUES('2', 'User1', 'Dupont', 'Jean', DATE('2003-07-09'), 'M', '6', 'CE1');
-INSERT INTO Child VALUES('1', 'User2', 'Martin', 'Lola', DATE('2003-07-09'), 'F', '3', 'CM1');
-INSERT INTO Child VALUES('1', 'User3', 'Dubois', 'Mathilde', DATE('2003-07-09'), 'F', '4', 'MS');
-INSERT INTO Child VALUES('2', 'User3', 'Dubois', 'Thomas', DATE('2003-07-09'), 'M', '2', 'PS');
-INSERT INTO Child VALUES('3', 'User3', 'Dubois', 'Matthieu', DATE('2003-07-09'), 'M', '3', 'CE2');
 
 INSERT INTO Nursery VALUES('nursery0', '7h00', '8h30', 50);
 INSERT INTO Nursery VALUES('nursery1', '15h45', '16h30', 50);
 INSERT INTO Nursery VALUES('nursery2', '16h30', '17h15', 50);
 INSERT INTO Nursery VALUES('nursery3', '17h15', '18h30', 50);
-/*
-INSERT INTO PeriodYear VALUES('1', TO_DATE('2017/09/04', 'yyyy/mm/dd'), TO_DATE('2017/12/22', 'yyyy/mm/dd'));
-*/
-INSERT INTO PeriodYear VALUES('1', DATE('2018-01-02'), DATE('2018-06-01'));
-INSERT INTO PeriodYear VALUES('2', DATE('2018-06-02'), DATE('2018-09-01'));
+
+INSERT INTO PeriodYear VALUES('1', TO_DATE('2018/01/02', 'yyyy/mm/dd'), TO_DATE('2018/06/01', 'yyyy/mm/dd'));
+INSERT INTO PeriodYear VALUES('2', TO_DATE('2018/06/02', 'yyyy/mm/dd'), TO_DATE('2018/09/01', 'yyyy/mm/dd'));
 
 INSERT INTO Activity VALUES('1', 'Gym', 60);
 INSERT INTO Activity VALUES('2', 'Handball', 55);

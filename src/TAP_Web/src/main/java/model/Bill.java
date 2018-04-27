@@ -20,14 +20,17 @@ public class Bill {
     private int billNumber;
     private String IdBooking;
 
-    public Bill(String idBill, int billNumber, Date date, int totalPrice, String period, String login, String IdBooking) {
+    public Bill(String idBill, int billNumber, int totalPrice, String period, String login, String IdBooking) {
         this.idBill = idBill;
         this.login = login;
         this.period = period;
         this.totalPrice = totalPrice;
-        this.date = date;
         this.billNumber = billNumber;
         this.IdBooking = IdBooking;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getIdBill() {

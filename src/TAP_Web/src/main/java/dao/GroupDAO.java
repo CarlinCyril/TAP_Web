@@ -40,7 +40,9 @@ public class GroupDAO extends AbstractDataBaseDAO {
                 resultSet = statement.executeQuery();
                 while(resultSet.next()) {
                     Statement statementTmp = connection.createStatement();
-                    String requestLevels = "SELECT ClassLevel  FROM GroupLevels WHERE ID_Activity =" + resultSet.getNString(2);
+                    String requestLevels = "SELECT ClassLevel  FROM GroupLevels "
+                            + "WHERE ID_Activity =" + resultSet.getNString(2)
+                            + "AND ID_Group =" + resultSet.getNString(1);
                     ResultSet resultLevel = statementTmp.executeQuery(requestLevels);
                     ArrayList<ClassLevel> levels = new ArrayList<ClassLevel>();
                     while(resultLevel.next()) {

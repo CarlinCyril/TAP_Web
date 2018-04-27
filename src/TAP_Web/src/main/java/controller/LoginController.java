@@ -59,7 +59,7 @@ public class LoginController extends HttpServlet {
         String action = request.getParameter("action");
         try {
         if(action == null)
-            request.getRequestDispatcher("connection.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
         else if(action.equals("logIn"))
             logIn(request, response);
         else if(action.equals("logOut"))
@@ -125,7 +125,7 @@ public class LoginController extends HttpServlet {
             User user = userDAO.login(request.getParameter("login"), request.getParameter("password"));
             if(user == null) {
                 request.setAttribute("login", false);
-                request.getRequestDispatcher("connection.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
             }
             else {
                 request.getSession().setAttribute("user", user);
@@ -147,7 +147,7 @@ public class LoginController extends HttpServlet {
             System.out.println("error UserValidateServlet message : " + sqle.getMessage());
             System.out.println("error UserValidateServlet exception : " + sqle);
         }
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
     }
 
 }

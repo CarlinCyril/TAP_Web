@@ -134,9 +134,9 @@ public class ParentController extends HttpServlet {
             ParentDAO parentDAO = new ParentDAO(ds);
             ArrayList<InfoParent> parents = parentDAO.getParentsUser(parentLogin);
             request.setAttribute("parents", parents);
-            request.getRequestDispatcher("parent.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/parent.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("connection.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
         }
     } 
 

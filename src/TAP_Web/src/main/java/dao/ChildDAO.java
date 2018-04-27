@@ -37,7 +37,7 @@ public class ChildDAO extends AbstractDataBaseDAO {
                     result = resultSet.getInt(1);
                 }
         } catch(SQLException se){
-                System.out.println(se.getMessage());
+                throw new DAOException("Erreur BD " + se.getMessage(), se);
         } finally {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
@@ -70,7 +70,7 @@ public class ChildDAO extends AbstractDataBaseDAO {
                     listChildren.add(child);
                 }
         } catch(SQLException se){
-                System.out.println(se.getMessage());
+                throw new DAOException("Erreur BD " + se.getMessage(), se);
         } finally {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
@@ -100,7 +100,7 @@ public class ChildDAO extends AbstractDataBaseDAO {
                 statement.setString(8, child.getLevel());
                 resultSet = statement.executeQuery();
         } catch(SQLException se){
-                System.out.println(se.getMessage());
+                throw new DAOException("Erreur BD " + se.getMessage(), se);
         } finally {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
@@ -134,7 +134,7 @@ public class ChildDAO extends AbstractDataBaseDAO {
                 statement.setString(8, child.getLogin());
                 resultSet = statement.executeQuery();
         } catch(SQLException se){
-                System.out.println(se.getMessage());
+                throw new DAOException("Erreur BD " + se.getMessage(), se);
         } finally {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}

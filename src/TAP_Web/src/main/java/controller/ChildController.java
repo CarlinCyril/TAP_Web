@@ -238,9 +238,9 @@ public class ChildController extends HttpServlet {
                 ArrayList<Bill> bills = billDAO.retrieveBills(children, today);
                 request.setAttribute("bills", bills);
             }
-            request.getRequestDispatcher("child.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/child.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("connection.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/connection.jsp").forward(request, response);
         }
     } 
 

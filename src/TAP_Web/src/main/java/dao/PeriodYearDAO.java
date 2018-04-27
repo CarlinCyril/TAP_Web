@@ -40,7 +40,7 @@ public class PeriodYearDAO extends AbstractDataBaseDAO {
                         resultSet.getDate(2), 
                         resultSet.getDate(3));
         } catch(SQLException se){
-                System.out.println(se.getMessage());
+                throw new DAOException("Erreur BD " + se.getMessage(), se);
         } finally {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}

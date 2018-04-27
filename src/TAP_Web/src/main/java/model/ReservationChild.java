@@ -54,9 +54,9 @@ public class ReservationChild {
         return false;
     }
     
-    public Boolean checkGroup(String IdGroup) {
+    public Boolean checkGroup(String IdGroup, String IdActivity) {
         for(GroupChoices group : groups) {
-            if(group.getIdGroup().equals(IdGroup))
+            if(group.getIdGroup().equals(IdGroup) && group.getIdActivity().equals(IdActivity))
                 return true;
         }
         return false;

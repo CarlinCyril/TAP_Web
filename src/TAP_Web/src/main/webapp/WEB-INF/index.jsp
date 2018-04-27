@@ -28,8 +28,8 @@
             
     <body>
         <header class="header">
-		<script src="jquery.js"></script>
-                <%@include file="header.jsp"%>
+		<script src="JS/jquery.js"></script>
+                <%@include file="/header.jsp"%>
         </header>
         <div class="home">
             <div class="title-home">

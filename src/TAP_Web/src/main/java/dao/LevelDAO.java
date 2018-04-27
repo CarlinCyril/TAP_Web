@@ -40,12 +40,13 @@ public class LevelDAO extends AbstractDataBaseDAO {
                     listDiets.add(newDiet);
                 }
         } catch(SQLException se){
-                System.out.println(se.getMessage());
+                throw new DAOException("Erreur BD " + se.getMessage(), se);
         } finally {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
                 try { connection.close(); } catch(Exception e){ /* ignored */}
-                return listDiets;
+                
         }
+        return listDiets;
     }
 }

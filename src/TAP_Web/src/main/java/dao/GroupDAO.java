@@ -59,12 +59,12 @@ public class GroupDAO extends AbstractDataBaseDAO {
                     listGroup.add(newGroup);
                 }
         } catch(SQLException se){
-                System.out.println(se.getMessage());
+                throw new DAOException("Erreur BD " + se.getMessage(), se);
         } finally {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
-                try { connection.close(); } catch(Exception e){ /* ignored */}
-                return listGroup;
+                try { connection.close(); } catch(Exception e){ /* ignored */}  
         }
+        return listGroup;
     }
 }

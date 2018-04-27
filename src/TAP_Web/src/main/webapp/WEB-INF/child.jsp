@@ -34,8 +34,8 @@
     </head>
     <body>
         <header class="header">
-		<script src="jquery.js"></script>
-                <%@include file="header.jsp"%>
+		<script src="JS/jquery.js"></script>
+                <%@include file="/header.jsp"%>
         </header>
         <div class="connection-title">
             <h4>Fiches Enfants</h4>
@@ -140,8 +140,6 @@
                                                     <option value="1">Vœux 1</option>
                                                     <option value="2">Vœux 2</option>
                                                     <option value="3">Vœux 3</option>
-                                                    <option value="4">Vœux 4</option>
-                                                    <option value="5">Vœux 5</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -157,7 +155,7 @@
                                     <th colspan="2">${activity.getPrice()}€</th>
                                 </tr>
                                 <c:forEach items="${groups}" var="group">
-                                    <c:if test="${group.getActivity().equals(activity.getID_Activity()) && child.getReservation().checkGroup(group.getID_Group())}">
+                                    <c:if test="${group.getActivity().equals(activity.getID_Activity()) && child.getReservation().checkGroup(group.getID_Group(), activity.getID_Activity())}">
                                         <tr class="panel" style="display:none">
                                             <td>${group.getDayOfTheWeek()}</td>
                                             <td>${group.getStartTime()}/${group.getEndTime()}</td>

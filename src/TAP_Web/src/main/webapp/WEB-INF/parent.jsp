@@ -34,8 +34,8 @@
     </head>
     <body>
         <header class="header">
-		<script src="jquery.js"></script>
-                <%@include file="header.jsp"%>
+		<script src="JS/jquery.js"></script>
+                <%@include file="/header.jsp"%>
         </header>
         <div class="connection-title">
             <h4>Fiches Parents</h4>

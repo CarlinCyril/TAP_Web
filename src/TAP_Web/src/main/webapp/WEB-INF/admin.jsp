@@ -26,7 +26,7 @@
     </head>
     <body>
         <header class="header">
-		<script src="jquery.js"></script>
+		<script src="JS/jquery.js"></script>
                 <%@include file="header.jsp"%>
         </header>
 

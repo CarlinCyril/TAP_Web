@@ -86,7 +86,7 @@ public class BookingDAO extends AbstractDataBaseDAO {
             }
             
         } catch(SQLException se){
-                System.out.println(se.getMessage());
+                throw new DAOException("Erreur BD " + se.getMessage(), se);
         } finally {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
@@ -146,7 +146,7 @@ public class BookingDAO extends AbstractDataBaseDAO {
             }
                 
         } catch(SQLException se){
-                System.out.println(se.getMessage());
+                throw new DAOException("Erreur BD " + se.getMessage(), se);
         } finally {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
@@ -176,7 +176,7 @@ public class BookingDAO extends AbstractDataBaseDAO {
             }
                 
         } catch(SQLException se){
-                System.out.println(se.getMessage());
+                throw new DAOException("Erreur BD " + se.getMessage(), se);
         } finally {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}

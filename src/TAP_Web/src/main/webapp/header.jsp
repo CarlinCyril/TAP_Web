@@ -6,7 +6,7 @@
 		<a class="sign-in" href="Login?action=logOut">Se déconnecter</a>
             </c:if>
             <c:if test="${empty login || !login}">
-                <a class="sign-in" href="connection.jsp">Se connecter</a>
+                <a class="sign-in" href="Login">Se connecter</a>
             </c:if>
 	</div>
         <div id="tab">

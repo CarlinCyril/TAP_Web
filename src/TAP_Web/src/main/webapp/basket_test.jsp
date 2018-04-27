@@ -32,8 +32,8 @@
             
     <body>
         <header class="header">
-		<script src="jquery.js"></script>
-                <%@include file="header.jsp"%>
+		<script src="JS/jquery.js"></script>
+                <%@include file="/header.jsp"%>
         </header>
         <div class='activity-title'>
             <h1>Basketball</h1>

@@ -17,15 +17,19 @@ public class EditActivity extends AbstractDataBaseDAO{
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-        	connection = dataSource.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.prepareStatement(
             		"UPDATE Activity SET Price = '?' WHERE ID_Activity = '?'");
             statement.setInt(1, price);
             statement.setString(2, id);
             resultSet = statement.executeQuery();
         } catch(SQLException se){
-            System.out.println(se.getMessage());
-        }
+            throw new DAOException("Erreur BD " + se.getMessage(), se);
+        } finally {
+            try { resultSet.close(); } catch(Exception e){ /* ignored */}
+            try { statement.close(); } catch(Exception e){ /* ignored */}
+            try { connection.close(); } catch(Exception e){ /* ignored */}
+    	}
     }
     
     public void addAct(String name, int cost) {
@@ -51,7 +55,7 @@ public class EditActivity extends AbstractDataBaseDAO{
             statement.setString(2, name);
             statement.setInt(3, cost);
             resultSet = statement.executeQuery();
-    } catch(SQLException se){
+        } catch(SQLException se){
             System.out.println(se.getMessage());
     	}finally {
             try { resultSet.close(); } catch(Exception e){ /* ignored */}

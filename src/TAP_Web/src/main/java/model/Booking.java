@@ -10,11 +10,11 @@ package model;
  * @author demarquq
  */
 public class Booking {
-    public String idBooking;
-    public Integer cafeteriaDays;
-    public String idChild;
-    public String login;
-    public String diet;
+    private String idBooking;
+    private Integer cafeteriaDays;
+    private String idChild;
+    private String login;
+    private String diet;
 
     public Booking(String idBooking, Integer cafeteriaDays, String idChild, String login, String diet) {
         this.idBooking = idBooking;

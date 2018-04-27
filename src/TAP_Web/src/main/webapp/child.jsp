@@ -185,6 +185,27 @@
                       </form>
                     </div>
                     </div>
+                    <c:if test="${not empty factures}">
+                    <button class="accordion">Facture</button>
+                    <div class="panel" style="display:none">
+                        <table id="bill">
+                            <tr>
+                                <th>Référence</th>
+                                <th>Date d'émission</th>
+                                <th>Prix total</th>
+                            </tr>
+                            <c:forEach items="${bills}" var="bill">
+                                <c:if test="${bill.getIdBooking().equals(child.getReservation().getBooking().getIdBooking())}">
+                                <tr>
+                                    <td>${bill.getBillNumber()}</td>
+                                    <td>${bill.getDate()}</td>
+                                    <td>${bill.getTotalPrice()}</td>
+                                </tr>
+                                </c:if>
+                            </c:forEach>
+                        </table>
+                    </div>
+                    </c:if>
                 </c:forEach>
                     
                 

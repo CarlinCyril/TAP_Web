@@ -1,3 +1,4 @@
+drop table CoordinatorCafeteria;
 drop table NurseryChoices;
 drop table GroupChoices;
 drop table GroupLevels;

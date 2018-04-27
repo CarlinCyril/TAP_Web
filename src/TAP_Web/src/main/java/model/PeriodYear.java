@@ -5,25 +5,27 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author demarquq
  */
 public class PeriodYear {
     private String idPeriod;
-    private String startDay;
-    private String endDay;
+    private Date startDay;
+    private Date endDay;
     
     
     public void setIdPeriod(String idPeriod) {
         this.idPeriod = idPeriod;
     }
 
-    public void setStartDay(String startDay) {
+    public void setStartDay(Date startDay) {
         this.startDay = startDay;
     }
 
-    public void setEndDay(String endDay) {
+    public void setEndDay(Date endDay) {
         this.endDay = endDay;
     }
 
@@ -31,22 +33,18 @@ public class PeriodYear {
         return idPeriod;
     }
 
-    public PeriodYear(String idPeriod, String startDay, String endDay) {
+    public PeriodYear(String idPeriod, Date startDay, Date endDay) {
         this.idPeriod = idPeriod;
         this.startDay = startDay;
         this.endDay = endDay;
     }
 
-    public String getStartDay() {
+    public Date getStartDay() {
         return startDay;
     }
 
-    public String getEndDay() {
+    public Date getEndDay() {
         return endDay;
     }
 
-    public PeriodYear(String startDay, String endDay) {
-        this.startDay = startDay;
-        this.endDay = endDay;
-    }
 }

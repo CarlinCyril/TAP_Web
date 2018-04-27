@@ -63,7 +63,8 @@ public class ReservationChild {
     }
     
     public Boolean checkCafeteria(Integer dayCafeteria) {
-        return (dayCafeteria & booking.cafeteriaDays) != 0;
+        Integer cafeteriaDayBooking = booking.getCafeteriaDays();
+        return (dayCafeteria & cafeteriaDayBooking) != 0;
     }
     
     public Boolean checkActivity(String IdActivity) {

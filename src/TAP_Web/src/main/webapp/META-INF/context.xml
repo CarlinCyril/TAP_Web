@@ -4,7 +4,7 @@
         auth="Container"
         type="javax.sql.DataSource"
         driverClassName="oracle.jdbc.OracleDriver"
-        url="jdbc:oracle:thin:@ensioracle1.imag.fr:1521:ensioracle1"
+        url="jdbc:derby://localhost:1527/sample"
         maxTotal="5"
         maxIdle="1"
         maxWaitMillis="20000"

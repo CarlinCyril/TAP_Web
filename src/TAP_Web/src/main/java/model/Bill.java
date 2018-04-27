@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author demarquq
@@ -14,24 +16,41 @@ public class Bill {
     private String login;
     private String period;
     private int totalPrice;
-    private String date;
+    private Date date;
     private int billNumber;
+    private String IdBooking;
 
-    public Bill(String idBill, String login, String period, int totalPrice, String date, int billNumber) {
+    public Bill(String idBill, int billNumber, Date date, int totalPrice, String period, String login, String IdBooking) {
         this.idBill = idBill;
         this.login = login;
         this.period = period;
         this.totalPrice = totalPrice;
         this.date = date;
         this.billNumber = billNumber;
+        this.IdBooking = IdBooking;
     }
 
+    public String getIdBill() {
+        return idBill;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
+    public String getIdBooking() {
+        return IdBooking;
+    }
 
     public int getTotalPrice() {
         return totalPrice;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 

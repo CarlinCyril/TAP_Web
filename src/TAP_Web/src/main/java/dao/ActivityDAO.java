@@ -49,8 +49,39 @@ public class ActivityDAO extends AbstractDataBaseDAO {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
                 try { connection.close(); } catch(Exception e){ /* ignored */}
-                return listAct;
         }
+        return listAct;
+    }
+    
+    public ArrayList<Activity> getAllActivitiesPeriod() {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        boolean valid = false;
+        ArrayList<Activity> listAct = new ArrayList<Activity>();
+        
+        try {
+                connection = dataSource.getConnection();
+                statement = connection.prepareStatement(
+                        "SELECT * FROM Activity" +
+"    inner join PeriodActivity on activity.ID_ACTIVITY = PERIODACTIVITY.ID_ACTIVITY" +
+"    inner join PERIODYEAR on PERIODACTIVITY.ID_PERIOD = PERIODYEAR.ID_PERIOD" +
+"    where trunc(SYSDATE) between PERIODYEAR.STARTDAY AND PERIODYEAR.ENDDAY");
+                resultSet = statement.executeQuery();
+                while(resultSet.next()) {
+                    Activity newActivity = new Activity(resultSet.getNString(1),
+                            resultSet.getNString(2), 
+                            resultSet.getInt(3));
+                    listAct.add(newActivity);
+                }
+        } catch(SQLException se){
+                System.out.println(se.getMessage());
+        } finally {
+                try { resultSet.close(); } catch(Exception e){ /* ignored */}
+                try { statement.close(); } catch(Exception e){ /* ignored */}
+                try { connection.close(); } catch(Exception e){ /* ignored */}
+        }
+        return listAct;
     }
 
     public Activity getActivity(String activityName) {
@@ -77,8 +108,10 @@ public class ActivityDAO extends AbstractDataBaseDAO {
                 try { resultSet.close(); } catch(Exception e){ /* ignored */}
                 try { statement.close(); } catch(Exception e){ /* ignored */}
                 try { connection.close(); } catch(Exception e){ /* ignored */}
-                return newActivity;
         }
+        return newActivity;
     }
+    
+    
     
 }

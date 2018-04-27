@@ -23,11 +23,14 @@ PRIMARY KEY(ID_Period));
 
 CREATE TABLE Bill(
 ID_Bill VARCHAR(50) NOT NULL PRIMARY KEY,
-BillNumber INT NOT NULL,
+BillNumber INTEGER NOT NULL,
 IssuingDate Date NOT NULL,
-TotalPrice INT NOT NULL,
+TotalPrice INTEGER NOT NULL,
 Login VARCHAR(50) NOT NULL REFERENCES Users(Login),
-ID_Period VARCHAR(50) NOT NULL REFERENCES PeriodYear(ID_Period));
+ID_Period VARCHAR(50) NOT NULL REFERENCES PeriodYear(ID_Period),
+ID_Booking VARCHAR(50) NOT NULL REFERENCES Booking(ID_Booking),
+CHECK(TotalPrice>=0)
+);
 
 CREATE TABLE Activity(
 ID_Activity VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -35,13 +38,14 @@ Name VARCHAR(50) NOT NULL,
 Price INT NOT NULL);
 
 CREATE TABLE GroupActivity(
-ID_Group VARCHAR(50) NOT NULL UNIQUE,
+ID_Group VARCHAR(50) NOT NULL,
 ID_Activity VARCHAR(50) NOT NULL REFERENCES Activity(ID_Activity),
 DaysOfTheWeek VARCHAR(50) NOT NULL,
 StartTime VARCHAR(50) NOT NULL,
 EndTime VARCHAR(50) NOT NULL,
-Enrollement VARCHAR(50) NOT NULL,
-PRIMARY KEY(ID_Group, ID_Activity)
+Enrollment INTEGER NOT NULL,
+PRIMARY KEY(ID_Group, ID_Activity),
+CHECK(Enrollment>=0)
 );
 
 CREATE TABLE PeriodActivity(
@@ -56,18 +60,20 @@ Firstname VARCHAR(50) NOT NULL
 );
 CREATE TABLE CoordinatorGroup(
 ID_Coordinator VARCHAR(50) NOT NULL REFERENCES Coordinator(ID_Coordinator),
-ID_Group VARCHAR(50) NOT NULL REFERENCES GroupActivity(ID_Group),
-ID_Activity VARCHAR(50) NOT NULL REFERENCES Activity(ID_Activity),
-PRIMARY KEY(ID_Coordinator, ID_Group, ID_Activity)
+ID_Group VARCHAR(50) NOT NULL,
+ID_Activity VARCHAR(50) NOT NULL,
+PRIMARY KEY(ID_Coordinator, ID_Group, ID_Activity),
+FOREIGN KEY (ID_Group, ID_Activity) REFERENCES GroupActivity(ID_Group, ID_Activity)
 );
 CREATE TABLE Nursery(
 ID_Nursery VARCHAR(50) NOT NULL PRIMARY KEY,
 StartTime VARCHAR(50) NOT NULL,
 EndTime VARCHAR(50) NOT NULL ,
-Price INT NOT NULL
+Price INTEGER NOT NULL,
+CHECK(Price>=0)
 );
 CREATE TABLE CoordinatorNursery(
-ID_Coordinator INT NOT NULL,
+ID_Coordinator VARCHAR(50) NOT NULL REFERENCES Coordinator(ID_Coordinator),
 ID_Nursery VARCHAR(50) NOT NULL REFERENCES Nursery(ID_Nursery),
 PRIMARY KEY(ID_Coordinator, ID_Nursery)
 );
@@ -79,7 +85,7 @@ CREATE TABLE ClassLevel(
 LevelName VARCHAR(50) NOT NULL Primary Key
 );
 CREATE TABLE Child(
-ID_Child VARCHAR(50) NOT NULL UNIQUE,
+ID_Child VARCHAR(50) NOT NULL,
 Login VARCHAR(50) NOT NULL REFERENCES Users(Login),
 Name VARCHAR(50) NOT NULL,
 Firstname VARCHAR(50) NOT NULL,
@@ -93,16 +99,19 @@ PRIMARY KEY(ID_Child, Login)
 CREATE TABLE Booking(
 ID_Booking VARCHAR(50) NOT NULL PRIMARY KEY,
 CafeteriaDays INTEGER NOT NULL,
-ID_Child VARCHAR(50) NOT NULL REFERENCES Child(ID_Child),
-Login VARCHAR(50) NOT NULL REFERENCES Users(Login),
-Diet VARCHAR(50) NOT NULL REFERENCES Diet(ID_Diet)
+ID_Child VARCHAR(50) NOT NULL,
+Login VARCHAR(50) NOT NULL,
+Diet VARCHAR(50) NOT NULL REFERENCES Diet(ID_Diet),
+FOREIGN KEY (ID_Child, Login) REFERENCES Child(ID_Child, Login),
+CHECK(CafeteriaDays>=0)
 );
 
 CREATE TABLE GroupChoices(
 ID_Booking VARCHAR(50) NOT NULL REFERENCES booking(ID_Booking),
-ID_Activity VARCHAR(50) NOT NULL REFERENCES Activity(ID_Activity),
-ID_Group VARCHAR(50) NOT NULL REFERENCES GroupActivity(ID_Group),
-PRIMARY KEY (ID_Booking, ID_Activity, ID_Group)
+ID_Activity VARCHAR(50) NOT NULL,
+ID_Group VARCHAR(50) NOT NULL,
+PRIMARY KEY (ID_Booking, ID_Activity, ID_Group),
+FOREIGN KEY (ID_Group, ID_Activity) REFERENCES GroupActivity(ID_Group, ID_Activity)
 );
 CREATE TABLE NurseryChoices(
 ID_Booking VARCHAR(50) NOT NULL REFERENCES Booking(ID_Booking),
@@ -111,12 +120,19 @@ PRIMARY KEY (ID_Booking, ID_Nursery)
 );
 
 CREATE TABLE GroupLevels(
-ID_Activity VARCHAR(50) NOT NULL REFERENCES Activity(ID_Activity),
-ID_Group VARCHAR(50) NOT NULL REFERENCES GroupActivity(ID_Group),
-ClassLevel VARCHAR(50) NOT NULL REFERENCES ClassLevel(LevelName)
+ID_Activity VARCHAR(50) NOT NULL,
+ID_Group VARCHAR(50) NOT NULL,
+ClassLevel VARCHAR(50) NOT NULL REFERENCES ClassLevel(LevelName),
+PRIMARY KEY (ID_Activity, ID_Group, ClassLevel),
+FOREIGN KEY (ID_Group, ID_Activity) REFERENCES GroupActivity(ID_Group, ID_Activity)
 );
 
+CREATE TABLE CoordinatorCafeteria(
+ID_Coordinator1 VARCHAR(50) NOT NULL REFERENCES Coordinator(ID_Coordinator),
+ID_Coordinator2 VARCHAR(50) NOT NULL REFERENCES Coordinator(ID_Coordinator)
+);
 
+/*
 INSERT INTO Users VALUES('User1', 'azer', TO_DATE('2018/03/01', 'yyyy/mm/dd'));
 INSERT INTO Users VALUES('User2', 'azer', TO_DATE('2018/03/02', 'yyyy/mm/dd'));
 INSERT INTO Users VALUES('User3', 'azer', TO_DATE('2018/03/01', 'yyyy/mm/dd'));

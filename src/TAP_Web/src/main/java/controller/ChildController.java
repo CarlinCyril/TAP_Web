@@ -6,6 +6,7 @@
 package controller;
 
 import dao.ActivityDAO;
+import dao.BillDAO;
 import dao.BookingDAO;
 import dao.ChildDAO;
 import dao.DAOException;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import model.Activity;
+import model.Bill;
 import model.Booking;
 import model.Child;
 import model.Diet;
@@ -44,8 +46,8 @@ public class ChildController extends HttpServlet {
     @Resource(name = "jdbc/tap")
     private DataSource ds;
     
-    private Integer IDChild = 0;
-
+    public Boolean editBills = false;
+    
     /* pages d’erreurs */
     private void invalidParameters(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
@@ -99,7 +101,7 @@ public class ChildController extends HttpServlet {
                 String childGender = request.getParameter("gender");
                 String childDiet = request.getParameter("diet");
                 String childLevel = request.getParameter("level");
-                String ID =Integer.toString(1+childDAO.getChildrenID());
+                String ID =Integer.toString(1+children.size());
                 Child child = new Child(ID, parentLogin.getUsername(), childName, childFirstname, 
                         childBirthdate, childGender, childDiet, childLevel);
                 childDAO.addChild(child);
@@ -157,6 +159,9 @@ public class ChildController extends HttpServlet {
                 Booking booking = new Booking("", cafeteriaChoice, ID, parentLogin.getUsername(), childDiet);
                 bookingDAO.editBooking(booking, groupChoices, nurseryChoices);
             }
+            else if(action=="missingChild") {
+                
+            }
             displayChildForm(request, response);
         } catch(DAOException e) {
             erreurBD(request, response, e);
@@ -168,6 +173,8 @@ public class ChildController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         User parentLogin = (User) request.getSession().getAttribute("user");
         if(parentLogin != null) {
+            
+            
             ActivityDAO activityDAO = new ActivityDAO(ds);
             ChildDAO childDAO = new ChildDAO(ds);
             DietDAO dietDAO = new DietDAO(ds);
@@ -188,6 +195,11 @@ public class ChildController extends HttpServlet {
             request.setAttribute("children", children);
             request.setAttribute("levels", levels);
             request.getRequestDispatcher("child.jsp").forward(request, response);
+            if(editBills) {
+                BillDAO billDAO = new BillDAO(ds);
+                ArrayList<Bill> bills = billDAO.retrieveBills(children);
+                request.setAttribute("bills", bills);
+            }
         } else {
             request.getRequestDispatcher("connection.jsp").forward(request, response);
         }

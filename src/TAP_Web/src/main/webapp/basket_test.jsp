@@ -37,6 +37,7 @@
         </header>
         <div class='activity-title'>
             <h1>Basketball</h1>
+            <p>Page modèle qui aurait du servir pour l'annulation d'une TAP</p>
         </div>
         <div class="cd-schedule loading">
             <div class="timeline">

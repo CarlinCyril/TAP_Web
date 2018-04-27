@@ -52,11 +52,30 @@ public class BookingDAO extends AbstractDataBaseDAO {
             resultSet = statement.executeQuery();
             
             for(GroupChoices groupChoice : groupChoices) {
-                statement = connection.prepareStatement("INSERT INTO GroupChoices VALUES (?,?,?)");
-                statement.setString(1, ID);
-                statement.setString(2, groupChoice.getIdActivity());
-                statement.setString(3, groupChoice.getIdGroup());
+                Integer numberPlaces = 0;
+                statement = connection.prepareStatement("SELECT enrollment FROM GroupActivity "
+                        + "WHERE ID_Activity=? AND ID_Group=?");
+                statement.setString(1, groupChoice.getIdActivity());
+                statement.setString(2, groupChoice.getIdGroup());
                 resultSet = statement.executeQuery();
+                while(resultSet.next())
+                    numberPlaces = resultSet.getInt(1);
+                
+                if(numberPlaces > 0) {
+                    statement = connection.prepareStatement("INSERT INTO GroupChoices VALUES (?,?,?)");
+                    statement.setString(1, ID);
+                    statement.setString(2, groupChoice.getIdActivity());
+                    statement.setString(3, groupChoice.getIdGroup());
+                    resultSet = statement.executeQuery();
+                    
+                    statement = connection.prepareStatement("UPDATE GroupActivity "
+                            + "SET Enrollment = ? "
+                            + "WHERE ID_Activity=? AND ID_Group=?");
+                    statement.setInt(1, numberPlaces-1);
+                    statement.setString(2, groupChoice.getIdActivity());
+                    statement.setString(3, groupChoice.getIdGroup());
+                    resultSet = statement.executeQuery();
+                }
             }
             
             for(String nurseryChoice : nurseryChoices) {

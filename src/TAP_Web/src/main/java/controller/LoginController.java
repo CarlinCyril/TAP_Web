@@ -82,7 +82,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("connection.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -112,6 +112,14 @@ public class LoginController extends HttpServlet {
     private void logIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getSession().getAttribute("user") != null)
             response.sendRedirect("Activity");
+        else if(request.getParameter("login").equals("admin")
+                && request.getParameter("password").equals("admin")) {
+            ConnexionDAO userDAO = new ConnexionDAO(ds);
+            User user = userDAO.login(request.getParameter("login"), request.getParameter("password"));
+            request.getSession().setAttribute("admin", true);
+            request.getSession().setAttribute("login", true);
+            response.sendRedirect("Activity");
+        }
         else {
             ConnexionDAO userDAO = new ConnexionDAO(ds);
             User user = userDAO.login(request.getParameter("login"), request.getParameter("password"));
@@ -128,8 +136,17 @@ public class LoginController extends HttpServlet {
     }
 
     private void logOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        session.invalidate();
+        HttpSession session  = request.getSession();
+        try
+        {      
+            session.removeAttribute("login");
+            session.invalidate();
+        }
+        catch (Exception sqle)
+        {
+            System.out.println("error UserValidateServlet message : " + sqle.getMessage());
+            System.out.println("error UserValidateServlet exception : " + sqle);
+        }
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

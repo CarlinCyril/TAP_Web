@@ -4,6 +4,7 @@ INSERT INTO Users VALUES('User2', 'azer', TO_DATE('2018/03/16', 'yyyy/mm/dd'));
 INSERT INTO Users VALUES('User3', 'azer', TO_DATE('2018/03/15', 'yyyy/mm/dd'));
 INSERT INTO Users VALUES('User4', 'azer', TO_DATE('2018/03/22', 'yyyy/mm/dd'));
 INSERT INTO Users VALUES('User5', 'azer', TO_DATE('2018/03/23', 'yyyy/mm/dd'));
+INSERT INTO Users VALUES('admin', 'admin', TO_DATE('2018/03/23', 'yyyy/mm/dd'));
 
 
 INSERT INTO InfoParent VALUES('1','User1','Dupont', 'Dominique', '0601234567', '1 rue de la porte' );

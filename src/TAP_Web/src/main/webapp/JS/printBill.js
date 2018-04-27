@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-function printData()
+function printData(idTable)
 {
-   var divToPrint=document.getElementById("bill");
+   var divToPrint=document.getElementById(idTable);
    newWin= window.open("");
    newWin.document.write(divToPrint.outerHTML);
    newWin.print();

@@ -13,12 +13,15 @@
 		<ul id="tab-title">
 			<li class="active"><a class="title" href="Home">ACCUEIL    </a></li>
 			<li><a class="title" href="Activity">ACTIVITES </a></li>
-			<li><a class="title" href="config.html">CALENDRIER </a></li>
-                        <c:if test="${login}">
+			<li><a class="title" href="basket_test.jsp">CALENDRIER </a></li>
+                        <c:if test="${sessionScope.login}">
                             <li><a class="title" href="Parent">PARENTS </a></li>
                         </c:if>
-                        <c:if test="${login}">
+                        <c:if test="${sessionScope.login}">
                             <li><a class="title" href="Child">ENFANTS </a></li>
+                        </c:if>
+                        <c:if test="${sessionScope.admin && login}">
+                        <li><a class="title" href="admin.jsp">ADMIN</a>
                         </c:if>
 		</ul>
 	</div>

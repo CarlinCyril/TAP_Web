@@ -75,32 +75,6 @@
                 </div>
             </div>
         <table id="catalogue">
-            <tr class="accordion">
-                <th colspan="2">Basketball</th>
-                <th colspan="2">50€</th>
-            </tr>
-            <tr class="panel" style="display:none">
-                <td>Mardi</td>
-                <td>15h30/16h30</td>
-                <td>CP</td>
-                <td>Réserver</td>
-            </tr>
-            <tr class="panel" style="display:none">
-                <td>Lundi</td>
-                <td>15h30/16h30</td>
-                <td>CE1</td>
-                <td><a href="Child">Réserver</a></td>
-            </tr>
-            <tr class="accordion">
-                <th>Volleyball</th>
-                <th>CM1/CM2</th>
-                <th>70€</th>
-            </tr>
-            <tr class="panel" style="display:none">
-                <th>Mardi</th>
-                <th>15h30/16h30</th>
-                <th>CP</th>
-            </tr>
             <c:forEach items="${activities}" var="activity">
                 <tr class="accordion">
                     <th colspan="2">${activity.getName()}</th>

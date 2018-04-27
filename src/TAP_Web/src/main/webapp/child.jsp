@@ -187,7 +187,7 @@
                     <c:if test="${editBills}">
                     <button class="accordion">Facture</button>
                     <div class="panel" style="display:none">
-                        <table id="bill">
+                        <table class="bill" id="${child.getIdChild()}-bill">
                             <tr>
                                 <th>Référence</th>
                                 <th>Date d'émission</th>
@@ -205,7 +205,7 @@
                                 </c:if>
                             </c:forEach>
                         </table>
-                        <button class="print" onclick="printData()">Imprimer</button>
+                        <button class="print" onclick="printData('${child.getIdChild()}-bill')">Imprimer</button>
                     </div>
                     </c:if>
                     </div>

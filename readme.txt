@@ -3,6 +3,7 @@
 ## Connexion à la base de données
 
 La connexion à la base de données de l'Ensimag se fait avec ojdbc7, il faut donc inclure le fichier src/TAP_Web/ojdbc7 dans le dossier apache-tomcat/lib pour que la connexion se fasse correctement.
+
 Une base de données disponible sur ensioracle1 :
 username : carlinc
 password : carlinc
@@ -11,7 +12,8 @@ Il faut également ajouter un rôle dans le fichier apache-tomcat/conf/tomcat-us
 
 	<role rolename="manager-gui"/>
 	<role rolename="manager-script"/>
-	<user username="CyrilCarlin" password="apacheEnsi" roles="manager-gui, manager-script"/>
+	<user username="CyrilCarlin" password="apacheEnsi" 
+		roles="manager-gui, manager-script"/>
 	</tomcat-users>
 
 ## Déployer le site web
